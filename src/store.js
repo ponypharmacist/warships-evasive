@@ -5,58 +5,126 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    fieldMy: [
-      // aTP = allowedToPlace
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: false}, {aTP: false}, {aTP: false}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: false}, {aTP: false}, {aTP: false}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: false}, {aTP: false}, {aTP: false}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}]
-    ],
+    currentPhase: 'placeShipsOne',
+    currentPlayer: 'playerOne',
+    gamePhases: ['placeShipsOne', 'readyPlayerTwo', 'placeShipsTwo', 'readyPlayerOne', 'goPlayerOne', 'goPlayerTwo'],
+
+    shipPlaceType: 'big',
+    shipPlaceOrientation: 'height',
+
+    playerOne: {
+      availableShips: {
+        big: 1,
+        medium: 2,
+        small: 3,
+        tiny: 4
+      },
+
+      fieldMy: [
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}]
+      ],
+      ships: [],
+    },
+
     fieldTheir: [
-      // aTP = allowedToPlace
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}],
-      [{aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}, {aTP: true}]
+      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}]
     ]
   },
+  
   getters: {
-    // getField(player, [one / two]): state => {}
-    getMyField: state => {
-      let myFieldCells = '';
-      for (let i = 0; i < state.fieldMy.length; i++) {
-        for (let k = 0; k < state.fieldMy[i].length; k++) {
-          let allowed = state.fieldMy[i][k].aTP ? 'allowed' : 'forbidden'
-          myFieldCells += '<div class="row' + i + ' col' + k + ' ' + allowed + '">&nbsp;</div> ';
-        }
-      }
-      return myFieldCells;
+    getFieldByParams: (state) => (player, field) => {
+      return state[player][field]
     },
+
+    getShipsByPlayer: (state) => (player) => {
+      return state[player].ships
+    },
+
     getTheirField: state => {
-      let theirFieldCells = '';
+      let theirFieldCells = ''
       for (let i = 0; i < state.fieldTheir.length; i++) {
         for (let k = 0; k < state.fieldTheir[i].length; k++) {
-          let allowed = state.fieldTheir[i][k].aTP ? 'allowed' : 'forbidden'
-          theirFieldCells += '<div class="row' + i + ' col' + k + ' ' + allowed + '">&nbsp;</div> ';
+          let allowed = state.fieldTheir[i][k].forbid ? 'allowed' : 'forbidden'
+          theirFieldCells += '<div class="row' + i + ' col' + k + ' ' + allowed + '">&nbsp;</div> '
         }
       }
-      return theirFieldCells;
-    }
-  },
-  mutations: {
+      return theirFieldCells
+    },
 
+    shipPlaceType: state => {
+      return state.shipPlaceType
+    },
+
+    shipPlaceOrientation: state => {
+      return state.shipPlaceOrientation
+    },
+
+    getShipsAvailableByType: (state) => (type) => {
+      return state[state.currentPlayer].availableShips[type]
+    },
+
+  },
+
+  mutations: {
+    setShipType (state, type) {
+      state.shipPlaceType = type;
+    },
+
+    toggleOrientation (state) {
+      if (state.shipPlaceOrientation == 'height') {
+        state.shipPlaceOrientation = 'width'
+      } else {
+        state.shipPlaceOrientation = 'height'
+      }
+    },
+
+    placeShipHead (state, coordinates) {
+      let type = state.shipPlaceType
+      let size = 1
+      
+      if (state.shipPlaceType == 'big') {
+        size = 4
+      } else if (state.shipPlaceType == 'medium') {
+        size = 3
+      } else if (state.shipPlaceType == 'small') {
+        size = 2
+      } else {
+        size = 1
+      }
+
+      if (state[state.currentPlayer].availableShips[type] >= 1) {
+        let newShip = {
+          class: '',
+          style: 'left: ' + (coordinates.col * 4.4) + 'vw; top: ' + (coordinates.row * 4.4) + 'vw; ' + state.shipPlaceOrientation + ': ' + (size * 4.4) + 'vw;'
+        }
+        newShip.class = 'ship-' + state.shipPlaceType + '-' + state[state.currentPlayer].availableShips[type]
+        state[state.currentPlayer].ships.push(newShip)
+        state[state.currentPlayer].availableShips[type]--
+      } else {
+        return
+      }
+
+      // eslint-disable-next-line
+      console.log(coordinates.row, coordinates.col)
+    }
   },
   actions: {
 

@@ -5,34 +5,70 @@
     #settings ⚙️
     #alerts You miss. Yarr!
 
-    #fieldMy.field-grid(v-html="this.getMyField")
+    #fieldMy
+      .ship(v-for="ship in this.getShipsByPlayer('playerOne')"
+            :class="ship.class" 
+            :style="ship.style")
+      .field-grid
+        template(v-for="(row, indexRow) in this.getFieldByParams('playerOne','fieldMy')")
+          div(v-for="(cell, indexCell) in row"
+              @click="cell.forbid ? printForbidden() : placeShipHead({row: indexRow, col: indexCell})"
+              :class="{ forbidden: cell.forbid }")
     .fieldExtraLeft Evade!
 
-    #fieldTheir.field-grid(v-html="this.getTheirField")
+    #fieldTheir
+      .field-grid(v-html="this.getTheirField")
     .fieldExtraRight Attack!
     
+    shipSelection
+
     // img(alt="Vue logo" src="./assets/logo.png")
-    // HelloWorld(msg="Welcome to Your Vue.js App")
 
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import HelloWorld from './components/HelloWorld.vue'
+import { mapGetters, mapMutations } from 'vuex'
+import ShipSelection from './components/ShipSelection.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    ShipSelection
+  },
+
+  data() {
+    return {
+    }
+  },
+
+  mounted() {
   },
 
   computed: {
     // mix the getters into computed with object spread operator
     ...mapGetters([
-      'getMyField',
       'getTheirField',
+      'getFieldByParams',
+      'getShipsByPlayer',
     ])
+  },
+
+  methods: {
+    placeShip() {
+      // Place head
+      // Calculate and apply forbidden
+    },
+
+    ...mapMutations([
+      'placeShipHead',
+    ]),
+
+    printForbidden() {
+      // eslint-disable-next-line
+      console.log('This place is not empty!');
+    }
   }
+
 }
 </script>
 
