@@ -4,3 +4,7 @@ This installs vue-cli globally
 2. vue create project-name
 This creates "project-name" folder with vue stuff in it
 
+3. vue ui
+Ui simplifies installation of dependencies and task running
+
+4. Add vuex, node-sass, sass-loader, pug, pug-loader
