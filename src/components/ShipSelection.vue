@@ -2,7 +2,7 @@
   
   #shipSelection
     .ship-buttons
-      .ship-button(:class="{ active: shipPlaceType == 'big', horizontal: this.shipPlaceOrientation == 'height' ? false : true }"
+      .ship-button(:class="{ active: shipPlaceType == 'big', horizontal: this.shipPlaceOrientation == 'height' ? false : true, disabled: this.noBigShips }"
                     @click="setShipType('big')") Place Big x {{ this.getShipsAvailableByType('big') }}
       .ship-button(:class="{ active: shipPlaceType == 'medium'}"
                     @click="setShipType('medium')") Place Medium x {{ this.getShipsAvailableByType('medium') }}
@@ -37,6 +37,9 @@ export default {
       'shipPlaceOrientation',
       'getShipsAvailableByType',
     ]),
+    noBigShips: function() {
+      return this.getShipsAvailableByType('big') == 0
+    }
   },
 
   methods: {
@@ -64,6 +67,7 @@ export default {
   border: 4px solid #503722
   border-radius: 24px 0 0 24px
 
+/* Ship buttons */
 .ship-buttons
   width: 42vw
   height: 46vw
@@ -90,6 +94,11 @@ export default {
 .ship-button.active
   background-color: #cc9f73
 
+.ship-button.disabled
+  border-color: transparent
+  color: transparent
+
+/* Utility buttons */
 .utility-buttons
   display: flex
   justify-content: center
