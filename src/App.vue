@@ -54,6 +54,7 @@ export default {
       'shipPlaceType',
       'shipPlaceOrientation',
       'getShipsAvailableByType',
+      'getShipsAvailableAll',
       'isTileForbidden',
       'isTileShip',
     ]),
@@ -65,6 +66,10 @@ export default {
 
   methods: {
     placeShip (row, col) {
+      if ( this.getShipsAvailableAll <= 0 ) {
+        this.alertMessage = 'No more ships left to place.'
+        return
+      }
       // Determine type and size
       let type = this.shipPlaceType
       let orientation = this.shipPlaceOrientation
@@ -89,13 +94,21 @@ export default {
         )
         // Place ship tiles
         this.placeShipTiles (shipTiles)
+        // Get forbidden tiles
+        let forbidTiles = this.getTilesToForbid(row, col, orientation, size)
+        this.placeForbiddenTiles (forbidTiles)
       } else {
         return
       }
 
-      // Calculate and place forbidden tiles
 
-      // Switch ship type button to the right if no more ships of this type left
+
+      // Cycle ship selection buttons
+      this.switchShipButtons(type)
+    },
+
+    // Switch ship type button to the right if no more ships of this type left
+    switchShipButtons(type) {
       if (this.getShipsAvailableByType(type) == 0) {
         if (type == 'big') {
           this.setShipType('medium')
@@ -118,6 +131,38 @@ export default {
         }
       }
       return shipTiles
+    },
+
+    getTilesToForbid(row, col, orientation, size) {
+      let forbidTiles = []
+
+      if (orientation == 'width') {
+        let rowWidth = size + 2
+        for (let i = 0; i < rowWidth; i++) {
+          if ( 0 <= (row - 1) && 0 <= (col - 1 + i) && (col - 1 + i) <= 9 ) {
+            forbidTiles.push({ row: row - 1, col: col - 1 + i })
+          }
+          if ( (row + 1) <= 9 && 0 <= (col - 1 + i) && (col - 1 + i) <= 9 ) {
+            forbidTiles.push({ row: row + 1, col: col - 1 + i })
+          }
+        }
+        if( 0 <= (col - 1) ) { forbidTiles.push({ row: row, col: col - 1 }) }
+        if( (col + size) <= 9 ) { forbidTiles.push({ row: row, col: col + size }) }
+      } else {
+        let rowHeight = size + 2
+        for (let j = 0; j < rowHeight; j++) {
+          if ( 0 <= (col - 1) && 0 <= (row - 1 + j) && (row - 1 + j) <= 9 ) {
+            forbidTiles.push({ col: col - 1, row: row - 1 + j })
+          }
+          if ( (col + 1) <= 9 && 0 <= (row - 1 + j) && (row - 1 + j) <= 9 ) {
+            forbidTiles.push({ col: col + 1, row: row - 1 + j })
+          }
+        }
+        if( 0 <= (row - 1) ) { forbidTiles.push({ row: row - 1, col: col }) }
+        if( (row + size) <= 9 ) { forbidTiles.push({ row: row + size, col: col }) }
+      }
+
+      return forbidTiles
     },
 
     checkPlaceability (row, col, orientation, size, shipTiles) {
@@ -151,6 +196,7 @@ export default {
     ...mapMutations([
       'placeShipHead',
       'placeShipTiles',
+      'placeForbiddenTiles',
       'setShipType',
     ]),
 
