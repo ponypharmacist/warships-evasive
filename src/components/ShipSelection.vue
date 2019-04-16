@@ -84,8 +84,20 @@ export default {
   border-radius: 12px
   cursor: pointer
 
-.ship-button:nth-child(1)
+.ship-button:nth-child(1),
+.ship-button:nth-child(2),
+.ship-button:nth-child(3),
+.ship-button:nth-child(4)
   background: transparent url('../assets/ship-big-vertical.svg') no-repeat 50% 30% / auto 60%
+
+.ship-button:nth-child(2)
+  background-size: auto 45%
+
+.ship-button:nth-child(3)
+  background-size: auto 30%
+
+.ship-button:nth-child(4)
+  background-size: auto 15%
 
 .ship-button.horizontal:nth-child(1)
   background: transparent url('../assets/ship-big-horizontal.svg') no-repeat 50% 45% / 60% auto

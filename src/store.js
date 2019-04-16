@@ -21,11 +21,11 @@ export default new Vuex.Store({
       },
 
       fieldMy: [
-        [{forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: true}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: true}],
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: true}, {forbid: true}, {forbid: false}],
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
@@ -81,6 +81,13 @@ export default new Vuex.Store({
       return state[state.currentPlayer].availableShips[type]
     },
 
+    isTileForbidden: (state) => (row, col) => {
+      return state[state.currentPlayer].fieldMy[row][col].forbid
+    },
+    isTileShip: (state) => (row, col) => {
+      return state[state.currentPlayer].fieldMy[row][col].forbid
+    },
+
   },
 
   mutations: {
@@ -96,34 +103,21 @@ export default new Vuex.Store({
       }
     },
 
-    placeShipHead (state, coordinates) {
-      let type = state.shipPlaceType
-      let size = 1
-      
-      if (state.shipPlaceType == 'big') {
-        size = 4
-      } else if (state.shipPlaceType == 'medium') {
-        size = 3
-      } else if (state.shipPlaceType == 'small') {
-        size = 2
-      } else {
-        size = 1
-      }
-
-      if (state[state.currentPlayer].availableShips[type] >= 1) {
+    placeShipHead (state, specs) {
+      if (state[state.currentPlayer].availableShips[specs.type] >= 1) {
         let newShip = {
           class: '',
-          style: 'left: ' + (coordinates.col * 4.4) + 'vw; top: ' + (coordinates.row * 4.4) + 'vw; ' + state.shipPlaceOrientation + ': ' + (size * 4.4) + 'vw;'
+          col: specs.col,
+          row: specs.row,
+          size: specs.size,
+          style: 'left: ' + (specs.col * 4.4) + 'vw; top: ' + (specs.row * 4.4) + 'vw; ' + specs.orientation + ': ' + (specs.size * 4.4) + 'vw;'
         }
-        newShip.class = 'ship-' + state.shipPlaceType + '-' + state[state.currentPlayer].availableShips[type]
+        newShip.class = 'ship-' + state.shipPlaceType + '-' + state[state.currentPlayer].availableShips[specs.type]
         state[state.currentPlayer].ships.push(newShip)
-        state[state.currentPlayer].availableShips[type]--
+        state[state.currentPlayer].availableShips[specs.type]--
       } else {
         return
       }
-
-      // eslint-disable-next-line
-      console.log(coordinates.row, coordinates.col)
     }
   },
   actions: {
