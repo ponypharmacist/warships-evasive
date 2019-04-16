@@ -1,11 +1,11 @@
 <template lang="pug">
 
   #app
-    #title Warships. Evasive
+    #title Десять кораблей!
     #settings ⚙️
-    #alerts You miss. Yarr!
+    #alerts {{ alertMessage }}
 
-    #fieldMy
+    #fieldMy(:class = "this.placeShipTypeClass")
       .ship(v-for="ship in this.getShipsByPlayer('playerOne')"
             :class="ship.class" 
             :style="ship.style")
@@ -13,7 +13,7 @@
         template(v-for="(row, indexRow) in this.getFieldByParams('playerOne','fieldMy')")
           div(v-for="(cell, indexCell) in row"
               @click="cell.forbid ? printForbidden() : placeShip(indexRow, indexCell)"
-              :class="{ forbidden: cell.forbid }")
+              :class="{ forbidden: cell.forbid, isShip: cell.ship }")
     .fieldExtraLeft Evade!
 
     #fieldTheir
@@ -38,6 +38,7 @@ export default {
 
   data() {
     return {
+      alertMessage: 'Yarr!',
     }
   },
 
@@ -52,9 +53,14 @@ export default {
       'getShipsByPlayer',
       'shipPlaceType',
       'shipPlaceOrientation',
+      'getShipsAvailableByType',
       'isTileForbidden',
       'isTileShip',
-    ])
+    ]),
+
+    placeShipTypeClass: function() {
+      return 'place-' + this.shipPlaceType + ' orient-' + this.shipPlaceOrientation
+    }
   },
 
   methods: {
@@ -75,25 +81,46 @@ export default {
       }
 
       // Check if placeable
-      let isPlaceable = this.checkPlaceability (row, col, orientation, size)
+      let shipTiles = this.getShipTiles(row, col, orientation, size)
+      let isPlaceable = this.checkPlaceability (row, col, orientation, size, shipTiles)
       if ( isPlaceable ) {
         // Place head
-        this.placeShipHead ({row: row, col: col, type: type, size: size, orientation: orientation})
+        this.placeShipHead ({row: row, col: col, type: type, size: size, orientation: orientation}
+        )
+        // Place ship tiles
+        this.placeShipTiles (shipTiles)
       } else {
         return
       }
 
-
-      
-
-      // Place ship tiles
-      // this.placeShipTiles ()
-
       // Calculate and place forbidden tiles
+
+      // Switch ship type button to the right if no more ships of this type left
+      if (this.getShipsAvailableByType(type) == 0) {
+        if (type == 'big') {
+          this.setShipType('medium')
+        } else if (type == 'medium') {
+          this.setShipType('small')
+        } else if (type == 'small') {
+          this.setShipType('tiny')
+        }
+      }
     },
 
-    checkPlaceability (row, col, orientation, size) {
-      let placeabilityStatus = 'Not evaluated'
+    // Generate a list of ship tiles
+    getShipTiles(row, col, orientation, size) {
+      let shipTiles = [{row: row, col: col}]
+      for (let i = 1; i < size; i++) {
+        if (orientation == 'width') {
+          shipTiles.push({row: row, col: col + i})
+        } else {
+          shipTiles.push({row: row + i, col: col})
+        }
+      }
+      return shipTiles
+    },
+
+    checkPlaceability (row, col, orientation, size, shipTiles) {
       let shipEnd = {row: row, col: col}
 
       if (orientation == 'width') {
@@ -104,29 +131,15 @@ export default {
 
       // 1. Check if ship sticks outside the board
       if (shipEnd.col > 9 || shipEnd.row > 9) {
-        placeabilityStatus = 'Ship cant stick outside the board!'
-        // eslint-disable-next-line
-        console.log(placeabilityStatus)
+        this.alertMessage = 'Ship cant stick outside the board!'
         return false
       }
 
       // 2. Check if ship tiles will cross with forbidden
-      // 2.1. Generate a list of ship tiles
-      let shipTiles = []
-      for (let i = 1; i < size; i++) {
-        if (orientation == 'width') {
-          shipTiles.push({row: row, col: col + i})
-        } else {
-          shipTiles.push({row: row + i, col: col})
-        }
-      }
-
-      // 2.2. Check each ship tile against forbidden cells and ship cells
+      // 2.1. Check each ship tile against forbidden cells and ship cells
       for (let tile of shipTiles) {
         if ( this.isTileForbidden(tile.row, tile.col) || this.isTileShip(tile.row, tile.col) ) {
-          placeabilityStatus = 'Ship cant cross forbidden tiles!'
-          // eslint-disable-next-line
-          console.log(placeabilityStatus)
+          this.alertMessage = 'Ship cant place on occupied tiles!'
           return false
         }
       }
@@ -137,11 +150,12 @@ export default {
 
     ...mapMutations([
       'placeShipHead',
+      'placeShipTiles',
+      'setShipType',
     ]),
 
     printForbidden () {
-      // eslint-disable-next-line
-      console.log('This place is not empty!');
+      this.alertMessage = 'This place is not empty!';
     }
   }
 

@@ -85,7 +85,7 @@ export default new Vuex.Store({
       return state[state.currentPlayer].fieldMy[row][col].forbid
     },
     isTileShip: (state) => (row, col) => {
-      return state[state.currentPlayer].fieldMy[row][col].forbid
+      return state[state.currentPlayer].fieldMy[row][col].ship
     },
 
   },
@@ -117,6 +117,12 @@ export default new Vuex.Store({
         state[state.currentPlayer].availableShips[specs.type]--
       } else {
         return
+      }
+    },
+
+    placeShipTiles (state, shipTiles) {
+      for (let tile of shipTiles) {
+        state[state.currentPlayer].fieldMy[tile.row][tile.col].ship = true
       }
     }
   },

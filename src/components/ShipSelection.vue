@@ -2,14 +2,14 @@
   
   #shipSelection
     .ship-buttons
-      .ship-button(:class="{ active: shipPlaceType == 'big', horizontal: this.shipPlaceOrientation == 'height' ? false : true, disabled: this.noBigShips }"
-                    @click="setShipType('big')") Place Big x {{ this.getShipsAvailableByType('big') }}
-      .ship-button(:class="{ active: shipPlaceType == 'medium'}"
-                    @click="setShipType('medium')") Place Medium x {{ this.getShipsAvailableByType('medium') }}
-      .ship-button(:class="{ active: shipPlaceType == 'small'}"
-                    @click="setShipType('small')") Place Small x {{ this.getShipsAvailableByType('small') }}
-      .ship-button(:class="{ active: shipPlaceType == 'tiny'}"
-                    @click="setShipType('tiny')") Place Tiny x {{ this.getShipsAvailableByType('tiny') }}
+      .ship-button(:class="this.shipButtonClass('big')"
+                    @click="setShipType('big')") x {{ this.getShipsAvailableByType('big') }}
+      .ship-button(:class="this.shipButtonClass('medium')"
+                    @click="setShipType('medium')") x {{ this.getShipsAvailableByType('medium') }}
+      .ship-button(:class="this.shipButtonClass('small')"
+                    @click="setShipType('small')") x {{ this.getShipsAvailableByType('small') }}
+      .ship-button(:class="this.shipButtonClass('tiny')"
+                    @click="setShipType('tiny')") x {{ this.getShipsAvailableByType('tiny') }}
 
     .utility-buttons
       .utility-button.rotate-button(@click="toggleOrientation()") Rotate
@@ -37,9 +37,6 @@ export default {
       'shipPlaceOrientation',
       'getShipsAvailableByType',
     ]),
-    noBigShips: function() {
-      return this.getShipsAvailableByType('big') == 0
-    }
   },
 
   methods: {
@@ -47,6 +44,14 @@ export default {
       'setShipType',
       'toggleOrientation',
     ]),
+
+    shipButtonClass (shipClass) {
+      return {
+        active: this.shipPlaceType == shipClass,
+        horizontal: this.shipPlaceOrientation == 'height' ? false : true,
+        disabled: this.getShipsAvailableByType(shipClass) == 0
+      }
+    },
   }
 
 }
@@ -83,24 +88,42 @@ export default {
   border: 1px solid #8f673b
   border-radius: 12px
   cursor: pointer
+  background-repeat: no-repeat
 
-.ship-button:nth-child(1),
-.ship-button:nth-child(2),
-.ship-button:nth-child(3),
-.ship-button:nth-child(4)
-  background: transparent url('../assets/ship-big-vertical.svg') no-repeat 50% 30% / auto 60%
+.ship-button:nth-child(1)
+  background-image: url('../assets/ship-vertical-4.png')
+  background-position: 50% 30%
+  background-size: 22px 88px
 
 .ship-button:nth-child(2)
-  background-size: auto 45%
+  background-image: url('../assets/ship-vertical-3.png')
+  background-position: 50% 40%
+  background-size: 22px 66px
 
 .ship-button:nth-child(3)
-  background-size: auto 30%
+  background-image: url('../assets/ship-vertical-2.png')
+  background-position: 50% 40%
+  background-size: 22px 44px
 
 .ship-button:nth-child(4)
-  background-size: auto 15%
+  background-image: url('../assets/ship-1.png')
+  background-position: 50% 44%
+  background-size: 22px 22px
 
 .ship-button.horizontal:nth-child(1)
-  background: transparent url('../assets/ship-big-horizontal.svg') no-repeat 50% 45% / 60% auto
+  background-image: url('../assets/ship-horizontal-4.png')
+  background-position: 50% 45%
+  background-size: 88px 22px
+
+.ship-button.horizontal:nth-child(2)
+  background-image: url('../assets/ship-horizontal-3.png')
+  background-position: 50% 45%
+  background-size: 66px 22px
+
+.ship-button.horizontal:nth-child(3)
+  background-image: url('../assets/ship-horizontal-2.png')
+  background-position: 50% 45%
+  background-size: 44px 22px
 
 .ship-button:hover,
 .ship-button.active
