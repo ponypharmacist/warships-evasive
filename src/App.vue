@@ -3,7 +3,7 @@
   #app(:class="this.getCurrentPhase")
     SplashScreen
 
-    #title Десять кораблей!
+    CharacterBar
     #settings ⚙️
     #alerts {{ this.getAlertMessage }}
 
@@ -12,17 +12,12 @@
       .ship(v-for="ship in this.getShipsByPlayer(this.getCurrentPlayer)"
             :class="ship.class" 
             :style="ship.style")
-        ShipControls(v-if="getCurrentPhase == 'placeShipsOne'" :ship="ship")
-    .fieldExtraLeft Evade!
+        ShipControls(v-if="getCurrentPhase == 'goPlayerOne'" :ship="ship")
 
     #fieldTheir
       FieldGrid(:player="this.getOtherPlayer")
-      .ship(v-for="ship in this.getShipsByPlayer(this.getOtherPlayer)"
-            :class="ship.class" 
-            :style="ship.style")
-    .fieldExtraRight Attack!
     
-    shipSelection
+    ShipSelection
 
     // img(alt="Vue logo" src="./assets/logo.png")
 
@@ -31,6 +26,7 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import SplashScreen from './components/SplashScreen.vue'
+import CharacterBar from './components/CharacterBar.vue'
 import ShipSelection from './components/ShipSelection.vue'
 import FieldGrid from './components/FieldGrid.vue'
 import ShipControls from './components/ShipControls.vue'
@@ -39,6 +35,7 @@ export default {
   name: 'app',
   components: {
     SplashScreen,
+    CharacterBar,
     ShipSelection,
     FieldGrid,
     ShipControls

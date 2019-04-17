@@ -1,10 +1,17 @@
 <template lang="pug">
   
   .field-grid
-    template(v-for="(row, indexRow) in this.getFieldByParams(this.player)")
-      div(v-for="(cell, indexCell) in row"
-          @click="cell.forbid ? printForbidden() : placeShip(indexRow, indexCell)"
-          :class="{ forbidden: cell.forbid, isShip: cell.ship }")
+    template(v-if="this.getCurrentPlayer == this.player")
+      template(v-for="(row, indexRow) in this.getFieldByParams(this.player)")
+        div(v-for="(cell, indexCell) in row"
+            @click="cell.forbid ? printForbidden() : placeShip(indexRow, indexCell)"
+            :class="{ forbidden: cell.forbid, isShip: cell.ship, mine: cell.mine }")
+    
+    template(v-if="!(this.getCurrentPlayer == this.player)")
+      template(v-for="(row, indexRow) in this.getFieldByParams(this.player)")
+        div(v-for="(cell, indexCell) in row"
+            @click="fireCannon(indexRow, indexCell)"
+            :class="{ isShip: cell.ship, mine: cell.mine }")
 
 </template>
 
@@ -13,16 +20,13 @@ import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'FieldGrid',
-  data() {
-    return {
-    }
-  },
   props: {
     player: String,
   },
 
   computed: {
     ...mapGetters([
+      'getCurrentPlayer',
       'getFieldByParams',
       'getShipsAvailableByType',
       'getShipsAvailableAll',
@@ -41,6 +45,10 @@ export default {
       'placeForbiddenTiles',
       'setShipType',
     ]),
+
+    fireCannon (row, col) {
+      console.log('Fire the cannon: (' + row + ', ' + col + ')!')
+    },
 
     placeShip (row, col) {
       let type = this.shipPlaceType
@@ -202,7 +210,13 @@ export default {
   background-size: cover
 
 .field-grid > div.forbidden
-  background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 60% 60%
+  background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 50% 50%
+
+.field-grid > div.mine
+  background: transparent url('../assets/mine.svg') no-repeat 50% 50% / 75% 75%
+
+.field-grid > div.mine.isShip
+  background: transparent url('../assets/explosion.svg') no-repeat 50% 50% / 100% 100%
 
 .field-grid > div.forbidden:after,
 .field-grid > div.isShip:after

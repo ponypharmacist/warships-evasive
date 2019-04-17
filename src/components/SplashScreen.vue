@@ -1,8 +1,15 @@
 <template lang="pug">
   
-  #splashScreen
-    .splash-screen-title Ready {{ this.currentPlayerText }}
-    .ready-button(@click="advanceGamePhase()") I am ready!
+  #splash-screen
+    #ready-player-one
+      .splash-screen-title Ready Player One
+      .ready-button(@click="advanceGamePhase()") I am ready!
+    #ready-player-two
+      .splash-screen-title Ready Player Two
+      .ready-button(@click="setShipType('big'), advanceGamePhase()") I am ready!
+    #game-menu
+      .splash-screen-title 10 кораблей!
+      .new-game-button(@click="advanceGamePhase()") Погнали!
 
 </template>
 
@@ -11,7 +18,6 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'SplashScreen',
-
   props: {
     player: String,
   },
@@ -21,9 +27,6 @@ export default {
       'getCurrentPlayer',
     ]),
 
-    currentPlayerText: function () {
-      return this.getCurrentPlayer == 'playerOne' ? 'Player Two' : 'Player One'
-    },
   },
 
   methods: {
@@ -41,7 +44,9 @@ export default {
 
 <style lang="sass">
 /* Splash Screen */
-#splashScreen
+#game-menu,
+#ready-player-one,
+#ready-player-two
   position: absolute
   z-index: 50
   width: 100vw
@@ -52,20 +57,29 @@ export default {
   flex-direction: column
   justify-content: center
   align-items: center
-  background-color: rgba(255,255,255,0.85)
+  background-color: #fff
   padding: 10vw
 
   transition: all 0.35s linear
 
-.readyPlayerOne #splashScreen,
-.readyPlayerTwo #splashScreen
+#game-menu
+  top: 0
+  transition: all 2s linear
+  transition-delay: 0.35s
+
+#app:not(.gameMenu) #game-menu
+  top: -100vh
+
+.readyPlayerOne #ready-player-one,
+.readyPlayerTwo #ready-player-two
   top: 0
 
 .splash-screen-title
   font-size: 5vw
   padding-bottom: 4vw
 
-.ready-button
+.ready-button,
+.new-game-button
   width: 20vw
   display: inline-block
   border: 1px solid #8f673b

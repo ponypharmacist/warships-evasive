@@ -7,9 +7,9 @@ export default new Vuex.Store({
   state: {
     alertMessage: 'Yarr!',
 
-    currentPhase: 'readyPlayerOne',
+    // gameMenu, readyPlayerOne, placeShipsOne, readyPlayerTwo, placeShipsTwo, readyPlayerOne, goPlayerOne, readyPlayerTwo, goPlayerTwo
+    currentPhase: 'gameMenu',
     currentPlayer: 'playerOne',
-    gamePhases: ['readyPlayerOne', 'placeShipsOne', 'readyPlayerTwo', 'placeShipsTwo', 'readyPlayerOne', 'goPlayerOne', 'readyPlayerTwo', 'goPlayerTwo'],
 
     shipPlaceType: 'big',
     shipPlaceOrientation: 'height',
@@ -114,14 +114,15 @@ export default new Vuex.Store({
     },
 
     isControlDisabled: (state) => (row, col, size, direction) => {
-      if (direction == 'up' && row - 2 >= 0) {
-        return state[state.currentPlayer].field[row - 2][col].ship
-      } else if (direction == 'down' && row + size + 1 <= 9) {
-        return state[state.currentPlayer].field[row + size + 1][col].ship
-      } else if (direction == 'left' && col - 2 >= 0) {
-        return state[state.currentPlayer].field[row][col - 2].ship
-      } else if (direction == 'right' && col + size + 1 <= 9) {
-        return state[state.currentPlayer].field[row][col + size + 1].ship
+      let aField = state[state.currentPlayer].field
+      if (direction == 'up' && row - 1 >= 0) {
+        return aField[row - 1][col].mine ? true : (row - 2 >= 0 && aField[row - 2][col].ship)
+      } else if (direction == 'down' && row + size <= 9) {
+        return aField[row + size][col].mine ? true : (row + size + 1 <= 9 && aField[row + size + 1][col].ship)
+      } else if (direction == 'left' && col - 1 >= 0) {
+        return aField[row][col - 1].mine ? true : (col - 2 >= 0 && aField[row][col - 2].ship)
+      } else if (direction == 'right' && col + size <= 9) {
+        return aField[row][col + size].mine ? true : (col + size + 1 <= 9 && aField[row][col + size + 1].ship)
       } else {
         return false
       }
@@ -192,11 +193,7 @@ export default new Vuex.Store({
       switch (context.state.currentPhase) {
         case 'readyPlayerOne':
           context.state.currentPlayer = 'playerOne'
-          if (context.getters.getShipsAvailableAll == 0) {
-            context.state.currentPhase = 'goPlayerOne'
-          } else {
-          context.state.currentPhase = 'placeShipsOne'
-          }
+          context.state.currentPhase = 'goPlayerOne'
           break
         case 'placeShipsOne':
           context.state.currentPhase = 'readyPlayerTwo'
@@ -218,6 +215,8 @@ export default new Vuex.Store({
         case 'goPlayerTwo':
           context.state.currentPhase = 'readyPlayerOne'
           break
+        default:
+          context.state.currentPhase = 'placeShipsOne'
       }
     }
   }

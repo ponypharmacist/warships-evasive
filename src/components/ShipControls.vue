@@ -43,6 +43,9 @@ $ship-control-offset: -3.7vw
   width: 100%
   height: 100%
 
+.isHit .ship-controls
+  display: none
+
 .ship-controls > div
   position: absolute
   width: 3.2vw
@@ -58,7 +61,7 @@ $ship-control-offset: -3.7vw
 
 .ship-controls-up,
 .ship-controls-down
-  left: 0.6vw
+  left: 0.65vw
 
 .ship-controls-up
   margin-top: $ship-control-offset
@@ -69,7 +72,7 @@ $ship-control-offset: -3.7vw
 
 .ship-controls-left,
 .ship-controls-right
-  top: 0.6vw
+  top: 0.65vw
 
 .ship-controls-left
   margin-left: $ship-control-offset
