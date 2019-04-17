@@ -43,12 +43,13 @@ export default {
     ]),
 
     placeShip (row, col) {
-      if ( this.getShipsAvailableAll <= 0 ) {
-        this.sendAlertMessage('No more ships left to place.')
+      let type = this.shipPlaceType
+      // Check if there are available ships of selected type
+      if ( this.getShipsAvailableByType(type) <= 0 ) {
+        this.sendAlertMessage('No more ships of this size left to place.')
         return
       }
-      // Determine type and size
-      let type = this.shipPlaceType
+      // Determine size
       let orientation = this.shipPlaceOrientation
       let size = 1
       if (type == 'big') {

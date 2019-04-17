@@ -24,10 +24,6 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'ShipSelection',
-  data() {
-    return {
-    }
-  },
 
   computed: {
     ...mapGetters([

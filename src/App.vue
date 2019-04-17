@@ -8,14 +8,18 @@
     #alerts {{ this.getAlertMessage }}
 
     #fieldMy(:class = "this.placeShipTypeClass")
+      FieldGrid(:player="this.getCurrentPlayer")
       .ship(v-for="ship in this.getShipsByPlayer(this.getCurrentPlayer)"
             :class="ship.class" 
             :style="ship.style")
-      FieldGrid(:player="this.getCurrentPlayer")
+        ShipControls(v-if="getCurrentPhase == 'placeShipsOne'" :ship="ship")
     .fieldExtraLeft Evade!
 
     #fieldTheir
       FieldGrid(:player="this.getOtherPlayer")
+      .ship(v-for="ship in this.getShipsByPlayer(this.getOtherPlayer)"
+            :class="ship.class" 
+            :style="ship.style")
     .fieldExtraRight Attack!
     
     shipSelection
@@ -29,6 +33,7 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 import SplashScreen from './components/SplashScreen.vue'
 import ShipSelection from './components/ShipSelection.vue'
 import FieldGrid from './components/FieldGrid.vue'
+import ShipControls from './components/ShipControls.vue'
 
 export default {
   name: 'app',
@@ -36,14 +41,8 @@ export default {
     SplashScreen,
     ShipSelection,
     FieldGrid,
+    ShipControls
   },
-
-  data() {
-    return {
-    }
-  },
-
-  mounted() {},
 
   computed: {
     ...mapGetters([

@@ -113,6 +113,20 @@ export default new Vuex.Store({
       return state[state.currentPlayer].field[row][col].ship
     },
 
+    isControlDisabled: (state) => (row, col, size, direction) => {
+      if (direction == 'up' && row - 2 >= 0) {
+        return state[state.currentPlayer].field[row - 2][col].ship
+      } else if (direction == 'down' && row + size + 1 <= 9) {
+        return state[state.currentPlayer].field[row + size + 1][col].ship
+      } else if (direction == 'left' && col - 2 >= 0) {
+        return state[state.currentPlayer].field[row][col - 2].ship
+      } else if (direction == 'right' && col + size + 1 <= 9) {
+        return state[state.currentPlayer].field[row][col + size + 1].ship
+      } else {
+        return false
+      }
+    },
+
   },
 
   mutations: {
@@ -147,7 +161,7 @@ export default new Vuex.Store({
           size: specs.size,
           style: 'left: ' + (specs.col * 4.4) + 'vw; top: ' + (specs.row * 4.4) + 'vw; ' + specs.orientation + ': ' + (specs.size * 4.4) + 'vw;'
         }
-        newShip.class = 'ship-' + state.shipPlaceType + '-' + state[state.currentPlayer].availableShips[specs.type]
+        newShip.class = 'ship-' + state.shipPlaceType + ' ' + specs.orientation
         state[state.currentPlayer].ships.push(newShip)
         state[state.currentPlayer].availableShips[specs.type]--
       } else {
@@ -177,6 +191,7 @@ export default new Vuex.Store({
     advanceGamePhase (context) {
       switch (context.state.currentPhase) {
         case 'readyPlayerOne':
+          context.state.currentPlayer = 'playerOne'
           if (context.getters.getShipsAvailableAll == 0) {
             context.state.currentPhase = 'goPlayerOne'
           } else {
@@ -185,9 +200,9 @@ export default new Vuex.Store({
           break
         case 'placeShipsOne':
           context.state.currentPhase = 'readyPlayerTwo'
-          context.state.currentPlayer = 'playerTwo'
           break
         case 'readyPlayerTwo':
+          context.state.currentPlayer = 'playerTwo'
           if (context.getters.getShipsAvailableAll == 0) {
             context.state.currentPhase = 'goPlayerTwo'
           } else {
@@ -196,11 +211,12 @@ export default new Vuex.Store({
           break
         case 'placeShipsTwo':
           context.state.currentPhase = 'readyPlayerOne'
-          context.state.currentPlayer = 'playerOne'
+          break
+        case 'goPlayerOne':
+          context.state.currentPhase = 'readyPlayerTwo'
           break
         case 'goPlayerTwo':
-          context.state.currentPhase = 'readyPlayerOne'          
-          context.state.currentPlayer = 'playerOne'
+          context.state.currentPhase = 'readyPlayerOne'
           break
       }
     }

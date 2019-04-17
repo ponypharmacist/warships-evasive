@@ -1,8 +1,7 @@
 <template lang="pug">
   
   #splashScreen
-    | Title
-    br
+    .splash-screen-title Ready {{ this.currentPlayerText }}
     .ready-button(@click="advanceGamePhase()") I am ready!
 
 </template>
@@ -12,24 +11,19 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'SplashScreen',
-  data() {
-    return {
-    }
-  },
+
   props: {
     player: String,
   },
 
   computed: {
     ...mapGetters([
-      'getFieldByParams',
-      'getShipsAvailableByType',
-      'getShipsAvailableAll',
-      'shipPlaceOrientation',
-      'shipPlaceType',
-      'isTileForbidden',
-      'isTileShip',
+      'getCurrentPlayer',
     ]),
+
+    currentPlayerText: function () {
+      return this.getCurrentPlayer == 'playerOne' ? 'Player Two' : 'Player One'
+    },
   },
 
   methods: {
@@ -45,7 +39,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 /* Splash Screen */
 #splashScreen
   position: absolute
@@ -53,7 +47,13 @@ export default {
   width: 100vw
   height: 100vh
   top: -100vh
+
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
   background-color: rgba(255,255,255,0.85)
+  padding: 10vw
 
   transition: all 0.35s linear
 
@@ -61,7 +61,12 @@ export default {
 .readyPlayerTwo #splashScreen
   top: 0
 
+.splash-screen-title
+  font-size: 5vw
+  padding-bottom: 4vw
+
 .ready-button
+  width: 20vw
   display: inline-block
   border: 1px solid #8f673b
   border-radius: 12px
