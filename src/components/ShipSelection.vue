@@ -25,13 +25,10 @@ export default {
   name: 'ShipSelection',
   data() {
     return {
-      positionX: 0,
-      positionY: 0,
     }
   },
 
   computed: {
-    // mix the getters into computed with object spread operator
     ...mapGetters([
       'shipPlaceType',
       'shipPlaceOrientation',

@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    alertMessage: 'Yarr!',
+
     currentPhase: 'placeShipsOne',
     currentPlayer: 'playerOne',
     gamePhases: ['placeShipsOne', 'readyPlayerTwo', 'placeShipsTwo', 'readyPlayerOne', 'goPlayerOne', 'goPlayerTwo'],
@@ -35,6 +37,29 @@ export default new Vuex.Store({
       ships: [],
     },
 
+    playerTwo: {
+      availableShips: {
+        big: 1,
+        medium: 2,
+        small: 3,
+        tiny: 4
+      },
+
+      fieldMy: [
+        [{forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}]
+      ],
+      ships: [],
+    },
+
     fieldTheir: [
       [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
       [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
@@ -50,6 +75,14 @@ export default new Vuex.Store({
   },
   
   getters: {
+    getAlertMessage: (state) => {
+      return state.alertMessage
+    },
+
+    getCurrentPlayer: (state) => {
+      return state.currentPlayer
+    },
+
     getFieldByParams: (state) => (player, field) => {
       return state[player][field]
     },
@@ -96,8 +129,12 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    sendAlertMessage: (state, message) => {
+      state.alertMessage = message
+    },
+
     setShipType (state, type) {
-      state.shipPlaceType = type;
+      state.shipPlaceType = type
     },
 
     toggleOrientation (state) {
