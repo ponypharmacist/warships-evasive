@@ -1,53 +1,56 @@
 <template lang="pug">
 
-  #app
+  #app(:class="this.getCurrentPhase")
+    SplashScreen
+
     #title Десять кораблей!
     #settings ⚙️
     #alerts {{ this.getAlertMessage }}
 
     #fieldMy(:class = "this.placeShipTypeClass")
-      .ship(v-for="ship in this.getShipsByPlayer('playerOne')"
+      .ship(v-for="ship in this.getShipsByPlayer(this.getCurrentPlayer)"
             :class="ship.class" 
             :style="ship.style")
-      FieldGrid(:field="'fieldMy'")
+      FieldGrid(:player="this.getCurrentPlayer")
     .fieldExtraLeft Evade!
 
     #fieldTheir
-      FieldGrid(:field="'fieldMy'")
+      FieldGrid(:player="this.getOtherPlayer")
     .fieldExtraRight Attack!
     
-    // shipSelection
+    shipSelection
 
     // img(alt="Vue logo" src="./assets/logo.png")
 
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+import SplashScreen from './components/SplashScreen.vue'
 import ShipSelection from './components/ShipSelection.vue'
 import FieldGrid from './components/FieldGrid.vue'
 
 export default {
   name: 'app',
   components: {
+    SplashScreen,
     ShipSelection,
-    FieldGrid
+    FieldGrid,
   },
 
   data() {
     return {
-      alertMessage: 'Yarr!',
     }
   },
 
-  mounted() {
-  },
+  mounted() {},
 
   computed: {
     ...mapGetters([
       'getAlertMessage',
-      'getTheirField',
-      'getFieldByParams',
+      'getCurrentPhase',
+      'getCurrentPlayer',
+      'getOtherPlayer',
       'getShipsByPlayer',
       'shipPlaceType',
       'shipPlaceOrientation',
@@ -59,6 +62,9 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'advanceGamePhase',
+    ]),
 
     ...mapMutations([
       'setShipType',

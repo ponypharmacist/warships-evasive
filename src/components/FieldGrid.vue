@@ -1,7 +1,7 @@
 <template lang="pug">
   
   .field-grid
-    template(v-for="(row, indexRow) in this.getFieldByParams('playerOne','fieldMy')")
+    template(v-for="(row, indexRow) in this.getFieldByParams(this.player)")
       div(v-for="(cell, indexCell) in row"
           @click="cell.forbid ? printForbidden() : placeShip(indexRow, indexCell)"
           :class="{ forbidden: cell.forbid, isShip: cell.ship }")
@@ -17,10 +17,12 @@ export default {
     return {
     }
   },
+  props: {
+    player: String,
+  },
 
   computed: {
     ...mapGetters([
-      'getCurrentPlayer',
       'getFieldByParams',
       'getShipsAvailableByType',
       'getShipsAvailableAll',
@@ -167,7 +169,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 /* Field Grid */
 .field-grid
   display: grid

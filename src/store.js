@@ -7,9 +7,9 @@ export default new Vuex.Store({
   state: {
     alertMessage: 'Yarr!',
 
-    currentPhase: 'placeShipsOne',
+    currentPhase: 'readyPlayerOne',
     currentPlayer: 'playerOne',
-    gamePhases: ['placeShipsOne', 'readyPlayerTwo', 'placeShipsTwo', 'readyPlayerOne', 'goPlayerOne', 'goPlayerTwo'],
+    gamePhases: ['readyPlayerOne', 'placeShipsOne', 'readyPlayerTwo', 'placeShipsTwo', 'readyPlayerOne', 'goPlayerOne', 'readyPlayerTwo', 'goPlayerTwo'],
 
     shipPlaceType: 'big',
     shipPlaceOrientation: 'height',
@@ -22,7 +22,7 @@ export default new Vuex.Store({
         tiny: 4
       },
 
-      fieldMy: [
+      field: [
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
@@ -45,7 +45,7 @@ export default new Vuex.Store({
         tiny: 4
       },
 
-      fieldMy: [
+      field: [
         [{forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
         [{forbid: false}, {forbid: false}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
         [{forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
@@ -59,47 +59,33 @@ export default new Vuex.Store({
       ],
       ships: [],
     },
-
-    fieldTheir: [
-      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-      [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}]
-    ]
   },
   
   getters: {
+    // General Interfrace
     getAlertMessage: (state) => {
       return state.alertMessage
+    },
+
+    getCurrentPhase: (state) => {
+      return state.currentPhase
     },
 
     getCurrentPlayer: (state) => {
       return state.currentPlayer
     },
 
-    getFieldByParams: (state) => (player, field) => {
-      return state[player][field]
+    getOtherPlayer: (state) => {
+      return state.currentPlayer == 'playerOne' ? 'playerTwo' : 'playerOne'
+    },
+
+    // Utility and mechanics
+    getFieldByParams: (state) => (player) => {
+      return state[player].field
     },
 
     getShipsByPlayer: (state) => (player) => {
       return state[player].ships
-    },
-
-    getTheirField: state => {
-      let theirFieldCells = ''
-      for (let i = 0; i < state.fieldTheir.length; i++) {
-        for (let k = 0; k < state.fieldTheir[i].length; k++) {
-          let allowed = state.fieldTheir[i][k].forbid ? 'allowed' : 'forbidden'
-          theirFieldCells += '<div class="row' + i + ' col' + k + ' ' + allowed + '">&nbsp;</div> '
-        }
-      }
-      return theirFieldCells
     },
 
     shipPlaceType: state => {
@@ -120,19 +106,26 @@ export default new Vuex.Store({
     },
 
     isTileForbidden: (state) => (row, col) => {
-      return state[state.currentPlayer].fieldMy[row][col].forbid
+      return state[state.currentPlayer].field[row][col].forbid
     },
+
     isTileShip: (state) => (row, col) => {
-      return state[state.currentPlayer].fieldMy[row][col].ship
+      return state[state.currentPlayer].field[row][col].ship
     },
 
   },
 
   mutations: {
+    // General Interface
     sendAlertMessage: (state, message) => {
       state.alertMessage = message
     },
 
+    setCurrentPhase: (state, phase) => {
+      state.currentPhase = phase
+    },
+
+    // Utility and Mechanics
     setShipType (state, type) {
       state.shipPlaceType = type
     },
@@ -164,17 +157,52 @@ export default new Vuex.Store({
 
     placeShipTiles (state, shipTiles) {
       for (let tile of shipTiles) {
-        state[state.currentPlayer].fieldMy[tile.row][tile.col].ship = true
+        state[state.currentPlayer].field[tile.row][tile.col].ship = true
       }
     },
 
     placeForbiddenTiles (state, forbidTiles) {
       for (let tile of forbidTiles) {
-        state[state.currentPlayer].fieldMy[tile.row][tile.col].forbid = true
+        state[state.currentPlayer].field[tile.row][tile.col].forbid = true
       }
+    },
+
+    resetField (state) {
+      state[state.currentPlayer].ships = []
+      state[state.currentPlayer].availableShips = { big: 1, medium: 2, small: 3, tiny: 4 }
+      state[state.currentPlayer].field = [[{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}], [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}], [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}], [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}], [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}], [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}], [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}], [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],[{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}], [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}]]
     },
   },
   actions: {
-
+    advanceGamePhase (context) {
+      switch (context.state.currentPhase) {
+        case 'readyPlayerOne':
+          if (context.getters.getShipsAvailableAll == 0) {
+            context.state.currentPhase = 'goPlayerOne'
+          } else {
+          context.state.currentPhase = 'placeShipsOne'
+          }
+          break
+        case 'placeShipsOne':
+          context.state.currentPhase = 'readyPlayerTwo'
+          context.state.currentPlayer = 'playerTwo'
+          break
+        case 'readyPlayerTwo':
+          if (context.getters.getShipsAvailableAll == 0) {
+            context.state.currentPhase = 'goPlayerTwo'
+          } else {
+          context.state.currentPhase = 'placeShipsTwo'
+          }
+          break
+        case 'placeShipsTwo':
+          context.state.currentPhase = 'readyPlayerOne'
+          context.state.currentPlayer = 'playerOne'
+          break
+        case 'goPlayerTwo':
+          context.state.currentPhase = 'readyPlayerOne'          
+          context.state.currentPlayer = 'playerOne'
+          break
+      }
+    }
   }
 })

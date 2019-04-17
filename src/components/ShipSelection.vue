@@ -13,13 +13,14 @@
 
     .utility-buttons
       .utility-button.rotate-button(@click="toggleOrientation()") Rotate
-      .utility-button.reset-button Reset
-      .utility-button.done-button Done
+      .utility-button.reset-button(@click="resetField()") Reset
+      .utility-button.done-button(@click="advanceGamePhase()") Done 
+      // Transition game phase pO, rT, pT, rO
 
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'ShipSelection',
@@ -37,9 +38,13 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'advanceGamePhase',
+    ]),
     ...mapMutations([
       'setShipType',
       'toggleOrientation',
+      'resetField',
     ]),
 
     shipButtonClass (shipClass) {
@@ -54,8 +59,8 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-  
+<style lang="sass">
+/* Ship Selection Menu */
 #shipSelection
   position: absolute
   display: flex
@@ -63,11 +68,17 @@ export default {
   width: 50vw
   height: 60vw
   top: calc(50% - 30vw)
-  right: 0
+  right: -50vw
   padding: 4vw
   background-color: #d5aa80
   border: 4px solid #503722
   border-radius: 24px 0 0 24px
+
+  transition: all 0.35s linear
+
+.placeShipsOne #shipSelection,
+.placeShipsTwo #shipSelection
+  right: 0
 
 /* Ship buttons */
 .ship-buttons
