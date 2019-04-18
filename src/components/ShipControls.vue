@@ -34,6 +34,7 @@ export default {
     ]),
 
     moveShip: function (row, col, size, direction) {
+      // eslint-disable-next-line
       console.log(row, col, size, direction)
     },
   }
