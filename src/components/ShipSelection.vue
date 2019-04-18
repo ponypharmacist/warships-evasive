@@ -81,7 +81,7 @@ export default {
   flex-direction: column
   width: 50vw
   height: 47vw
-  top: 19vw
+  bottom: 9vw
   right: -50vw
   padding: 3vw 5vw
   background: transparent url('../assets/book.svg') no-repeat 50% 50% / cover

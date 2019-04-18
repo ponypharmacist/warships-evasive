@@ -1,17 +1,16 @@
 <template lang="pug">
   
   .field-grid
-    template(v-if="this.getCurrentPlayer == this.player")
+    template(v-if="this.getCurrentPlayer == this.player && !(this.getCurrentPhase == 'goPlayerOne' || this.getCurrentPhase == 'goPlayerTwo')")
       template(v-for="(row, indexRow) in this.getFieldByParams(this.player)")
         div(v-for="(cell, indexCell) in row"
             @click="cell.forbid ? printForbidden() : placeShip(indexRow, indexCell)"
             :class="{ forbidden: cell.forbid, isShip: cell.ship, mine: cell.mine }")
     
-    template(v-if="!(this.getCurrentPlayer == this.player)")
+    template(v-if="this.getCurrentPlayer == this.player && (this.getCurrentPhase == 'goPlayerOne' || this.getCurrentPhase == 'goPlayerTwo')")
       template(v-for="(row, indexRow) in this.getFieldByParams(this.player)")
         div(v-for="(cell, indexCell) in row"
-            @click="fireCannon(indexRow, indexCell)"
-            :class="{ isShip: cell.ship, mine: cell.mine }")
+            :class="{ forbidden: cell.forbid, isShip: cell.ship, mine: cell.mine }")
 
 </template>
 
@@ -26,7 +25,9 @@ export default {
 
   computed: {
     ...mapGetters([
+      'getCurrentPhase',
       'getCurrentPlayer',
+      'getOpponent',
       'getFieldByParams',
       'getShipsAvailableByType',
       'getShipsAvailableAll',
@@ -34,6 +35,7 @@ export default {
       'shipPlaceType',
       'isTileForbidden',
       'isTileShip',
+      'opponentFieldCheck',
     ]),
   },
 
@@ -43,12 +45,10 @@ export default {
       'placeShipHead',
       'placeShipTiles',
       'placeForbiddenTiles',
+      'placeMine',
       'setShipType',
+      'markShipDamaged',
     ]),
-
-    fireCannon (row, col) {
-      console.log('Fire the cannon: (' + row + ', ' + col + ')!')
-    },
 
     placeShip (row, col) {
       let type = this.shipPlaceType
@@ -74,8 +74,7 @@ export default {
       let isPlaceable = this.checkPlaceability (row, col, orientation, size, shipTiles)
       if ( isPlaceable ) {
         // Place head
-        this.placeShipHead ({row: row, col: col, type: type, size: size, orientation: orientation}
-        )
+        this.placeShipHead ({row: row, col: col, type: type, size: size, orientation: orientation, tiles: shipTiles})
         // Place ship tiles
         this.placeShipTiles (shipTiles)
         // Place forbidden tiles
@@ -103,7 +102,7 @@ export default {
 
     // Generate a list of ship tiles
     getShipTiles (row, col, orientation, size) {
-      let shipTiles = [{row: row, col: col}]
+      var shipTiles = [{row: row, col: col}]
       for (let i = 1; i < size; i++) {
         if (orientation == 'width') {
           shipTiles.push({row: row, col: col + i})
@@ -194,11 +193,11 @@ export default {
   background-color: rgba(255, 255, 255, 0.1)
   user-select: none
 
-.goPlayerOne .field-grid > div,
-.goPlayerTwo .field-grid > div,
-.goPlayerOne .field-grid > div:hover,
-.goPlayerTwo .field-grid > div:hover
-  background-color: rgba(255, 255, 255, 0.05)
+.goPlayerOne,
+.goPlayerTwo
+  #fieldMy .field-grid > div,
+  #fieldMy .field-grid > div:hover
+    background-color: rgba(255, 255, 255, 0.05)
 
 /* Grid interactions */
 .field-grid > div:hover
@@ -218,15 +217,19 @@ export default {
 .field-grid > div.forbidden
   background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 50% 50%
 
-.goPlayerOne .field-grid > div.forbidden,
-.goPlayerTwo .field-grid > div.forbidden
-  background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 20% 20%
+.goPlayerOne,
+.goPlayerTwo,
+.readyPlayerOne,
+.readyPlayerTwo
+  #fieldMy .field-grid > div.forbidden
+    background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 20% 20%
 
 .field-grid > div.mine
-  background: transparent url('../assets/mine.svg') no-repeat 50% 50% / 75% 75%
+  background: transparent url('../assets/mine.svg') no-repeat 50% 50% / 60% 60%
 
 .field-grid > div.mine.isShip
-  background: transparent url('../assets/explosion.svg') no-repeat 50% 50% / 100% 100%
+  border: 2px solid #644932
+  background: #a47d52 url('../assets/explosion.svg') no-repeat 50% 50% / 75% 75%
 
 .field-grid > div.forbidden:after,
 .field-grid > div.isShip:after,

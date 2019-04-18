@@ -57,7 +57,7 @@ export default {
   flex-direction: column
   justify-content: center
   align-items: center
-  background-color: #fff
+  background: #fff url('../assets/bg-ready.svg') no-repeat 50% 50% / auto 100%
   padding: 10vw
 
   transition: all 0.35s linear

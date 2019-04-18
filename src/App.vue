@@ -12,11 +12,12 @@
       FieldGrid(:player="this.getCurrentPlayer")
       .ship(v-for="ship in this.getShipsByPlayer(this.getCurrentPlayer)"
             :class="ship.class" 
-            :style="ship.style")
+            :style="ship.style"
+            :data="ship.isDamaged")
         ShipControls(v-if="getCurrentPhase == 'goPlayerOne'" :ship="ship")
 
     #fieldTheir
-      FieldGrid(:player="this.getOtherPlayer")
+      FieldGridOpponent(:player="this.getOpponent")
     
     ShipSelection
 
@@ -30,6 +31,7 @@ import SplashScreen from './components/SplashScreen.vue'
 import CharacterBar from './components/CharacterBar.vue'
 import ShipSelection from './components/ShipSelection.vue'
 import FieldGrid from './components/FieldGrid.vue'
+import FieldGridOpponent from './components/FieldGridOpponent.vue'
 import ShipControls from './components/ShipControls.vue'
 
 export default {
@@ -39,6 +41,7 @@ export default {
     CharacterBar,
     ShipSelection,
     FieldGrid,
+    FieldGridOpponent,
     ShipControls
   },
 
@@ -47,7 +50,7 @@ export default {
       'getAlertMessage',
       'getCurrentPhase',
       'getCurrentPlayer',
-      'getOtherPlayer',
+      'getOpponent',
       'getShipsByPlayer',
       'shipPlaceType',
       'shipPlaceOrientation',

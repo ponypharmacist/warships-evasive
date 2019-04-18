@@ -1,10 +1,10 @@
 <template lang="pug">
   
   #character-bar
-    #avatar
-    input.player-name(value="Flame Princess")
-    .player-title as Player One
-    #adversary
+    #avatar(:class="this.getCurrentPlayer")
+    input.player-name(:value="this.getCurrentPlayerName" @input="this.updatePlayerName")
+    .player-title  as {{ this.getCurrentPlayer == 'playerOne' ? 'Player One' : 'Player Two' }}
+    #adversary(:class="this.getCurrentPlayer")
 
 </template>
 
@@ -16,13 +16,19 @@ export default {
 
   computed: {
     ...mapGetters([
+      'getCurrentPlayer',
+      'getCurrentPlayerName',
     ]),
   },
 
   methods: {
     ...mapMutations([
       'setShipType',
+      'updateCurrentPlayerName',
     ]),
+    updatePlayerName (e) {
+      this.updateCurrentPlayerName(e)
+    }
   }
 
 }
@@ -63,6 +69,12 @@ export default {
   background: transparent url('../assets/avatar-2.png') no-repeat 100% 100% / cover
   border-radius: 50%
   border: 3px solid rgba(64,41,22,0.75)
+
+#avatar.playerTwo
+  background: transparent url('../assets/avatar-2.png') no-repeat 100% 100% / cover
+
+#adversary.playerTwo
+  background: transparent url('../assets/avatar-1.png') no-repeat 100% 100% / cover
 
 #adversary:before
   position: absolute
