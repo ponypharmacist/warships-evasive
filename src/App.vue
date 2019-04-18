@@ -14,7 +14,7 @@
             :class="ship.class" 
             :style="ship.style"
             :data="ship.isDamaged")
-        ShipControls(v-if="getCurrentPhase == 'goPlayerOne'" :ship="ship")
+        ShipControls(:ship="ship")
 
     #fieldTheir
       FieldGridOpponent(:player="this.getOpponent")

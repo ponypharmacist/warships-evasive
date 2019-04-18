@@ -16,6 +16,8 @@ export default new Vuex.Store({
 
     playerOne: {
       name: 'Flame Princess',
+      movesAvailable: 1,
+      shotsAvailable: 1,
       availableShips: {
         big: 1,
         medium: 2,
@@ -39,6 +41,8 @@ export default new Vuex.Store({
 
     playerTwo: {
       name: 'Wolf Girl',
+      movesAvailable: 1,
+      shotsAvailable: 1,
       availableShips: {
         big: 1,
         medium: 2,

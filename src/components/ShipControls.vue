@@ -1,10 +1,14 @@
 <template lang="pug">
   
   .ship-controls
-    .ship-controls-up(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'up') }")
-    .ship-controls-right(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'right') }")
-    .ship-controls-down(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'down') }")
-    .ship-controls-left(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'left') }")
+    .ship-controls-up(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'up') }"
+                      @click="this.moveShip(ship.row, ship.col, ship.size, 'up')")
+    .ship-controls-right(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'right') }"
+                      @click="this.moveShip(ship.row, ship.col, ship.size, 'right')")
+    .ship-controls-down(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'down') }"
+                      @click="this.moveShip(ship.row, ship.col, ship.size, 'down')")
+    .ship-controls-left(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'left') }"
+                      @click="this.moveShip(ship.row, ship.col, ship.size, 'left')")
 
 </template>
 
@@ -29,6 +33,9 @@ export default {
       'setShipType',
     ]),
 
+    moveShip: function (row, col, size, direction) {
+      console.log(row, col, size, direction)
+    },
   }
 
 }
@@ -44,8 +51,11 @@ $base-control-bg-color: rgba(255,255,255,0.1)
   width: 100%
   height: 100%
 
-.isHit .ship-controls
-  display: none
+.isHit,
+.placeShipsOne,
+.placeShipsTwo
+  .ship-controls
+    display: none
 
 .ship-controls > div
   position: absolute
