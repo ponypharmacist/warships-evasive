@@ -19,7 +19,7 @@
         .ship-button-amount x{{ this.getShipsAvailableByType('tiny') }}
 
     .utility-buttons
-      .utility-button.rotate-button(@click="toggleOrientation()") Rotate
+      .utility-button.rotate-button(@click="toggleOrientation()")
       .utility-button.reset-button(@click="resetField()") Reset
       .utility-button.done-button(@click="donePlacing()") Done 
       // Transition game phase pO, rT, pT, rO
@@ -83,29 +83,27 @@ export default {
   height: 47vw
   top: 19vw
   right: -50vw
-  padding: 3vw 4vw
-  background-color: #fff
-  border-radius: 4px 0 0 4px
-  box-shadow: 0 0 1.5rem rgba(0,0,0,.15)
+  padding: 3vw 5vw
+  background: transparent url('../assets/book.svg') no-repeat 50% 50% / cover
 
   transition: all 0.35s linear
 
 .placeShipsOne #shipSelection,
 .placeShipsTwo #shipSelection
-  right: 0
+  right: 1vw
 
 /* Ship buttons */
 .ship-buttons
-  width: 42vw
-  height: 36vw
+  width: 40vw
+  height: 34vw
   display: flex
   flex-wrap: wrap
   justify-content: space-between
 
 .ship-button
   position: relative
-  width: 19vw
-  height: 15vw
+  width: 17vw
+  height: 14vw
   margin-bottom: 3vw
   border: 1px solid #bbb
   cursor: pointer
@@ -158,6 +156,9 @@ export default {
   border: 1px solid #bbb
   line-height: 3.75vw
   font-weight: bold
+  
+.ship-button.disabled .ship-button-amount
+  display: none
 
 /* Utility buttons */
 .utility-buttons
@@ -165,15 +166,28 @@ export default {
   justify-content: center
 
 .utility-button
-  border: 1px solid #8f673b
+  padding: 1.5vw 2vw
+  margin: 0 2vw 0 0
   border-radius: 12px
   text-align: center
-  padding: 1.5vw 2vw
-  margin: 0 1vw
+  font-weight: bold
+  color: #fff
+  background-color: rgba(0,138,13,1)
   cursor: pointer
 
 .utility-button:hover
-  background-color: #cc9f73
+  background-color: rgba(0,111,11,1)
+
+.rotate-button
+  width: 5vw
+  background-image: url('../assets/rotate.svg')
+  background-repeat: no-repeat
+  background-position: 50% 50%
+  background-size: 3vw 3vw
+
+.done-button
+  margin-left: auto
+  margin-right: 0
 
 
 </style>

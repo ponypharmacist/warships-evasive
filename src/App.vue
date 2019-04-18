@@ -4,6 +4,7 @@
     SplashScreen
 
     CharacterBar
+    #go-button(@click="advanceGamePhase()") Go!
     #settings ⚙️
     #alerts {{ this.getAlertMessage }}
 

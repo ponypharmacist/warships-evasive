@@ -36,7 +36,8 @@ export default {
 
 <style lang="sass">
 /* ShipControls */
-$ship-control-offset: -3.7vw
+$ship-control-offset: calc(-4.4vw)
+$base-control-bg-color: rgba(255,255,255,0.1)
 
 .ship-controls
   position: relative
@@ -48,38 +49,42 @@ $ship-control-offset: -3.7vw
 
 .ship-controls > div
   position: absolute
-  width: 3.2vw
-  height: 3.2vw
-  border-radius: 50%
-  background-color: rgba(0,255,0,0.5)
+  width: 4.4vw
+  height: 4.4vw
+  border-radius: 1vw
+  cursor: pointer
 
 .ship-controls > div:hover
-  background-color: rgba(0,255,0,0.75)
+  background-color: rgba(255,255,255,0.4)
 
 .ship-controls > div.disabled
   display: none!important
 
 .ship-controls-up,
 .ship-controls-down
-  left: 0.65vw
+  left: 0
 
 .ship-controls-up
   margin-top: $ship-control-offset
+  background: $base-control-bg-color url('../assets/up.svg') no-repeat 50% 50% / 75% 75%
 
 .ship-controls-down
   bottom: 0
   margin-bottom: $ship-control-offset
+  background: $base-control-bg-color url('../assets/down.svg') no-repeat 50% 50% / 75% 75%
 
 .ship-controls-left,
 .ship-controls-right
-  top: 0.65vw
+  top: 0
 
 .ship-controls-left
   margin-left: $ship-control-offset
+  background: $base-control-bg-color url('../assets/left.svg') no-repeat 50% 50% / 75% 75%
 
 .ship-controls-right
   right: 0
   margin-right: $ship-control-offset
+  background: $base-control-bg-color url('../assets/right.svg') no-repeat 50% 50% / 75% 75%
 
 .width .ship-controls-up,
 .width .ship-controls-down,

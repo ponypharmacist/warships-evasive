@@ -2,7 +2,7 @@
   
   #character-bar
     #avatar
-    input.player-name(value="Captn. Fiery Princess")
+    input.player-name(value="Flame Princess")
     .player-title as Player One
     #adversary
 
@@ -35,7 +35,7 @@ export default {
   background-color: rgba(64,41,22,0.2)
   display: flex
   align-items: center
-  width: 66vw
+  width: 60vw
   height: 13vw
   left: 10vw
   top: 4vw
@@ -75,6 +75,7 @@ export default {
 
 .player-name
   position: relative
+  width: 35vw
   z-index: 5
   border: none
   background-color: rgba(169,137,102,0.75)

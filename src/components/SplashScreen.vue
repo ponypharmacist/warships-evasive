@@ -64,8 +64,9 @@ export default {
 
 #game-menu
   top: 0
-  transition: all 2s linear
+  transition: all 1.5s linear
   transition-delay: 0.35s
+  background: #fff url('../assets/bg-menu.jpg') no-repeat 50% 50% / cover
 
 #app:not(.gameMenu) #game-menu
   top: -100vh
@@ -75,17 +76,23 @@ export default {
   top: 0
 
 .splash-screen-title
-  font-size: 5vw
-  padding-bottom: 4vw
+  padding: 1vw 2vw
+  margin-bottom: 4vw
+  font-size: 6vw
+  font-weight: bold
+  background-color: rgba(255,255,255,0.8)
 
 .ready-button,
 .new-game-button
-  width: 20vw
   display: inline-block
-  border: 1px solid #8f673b
-  border-radius: 12px
-  text-align: center
+  width: 28vw
   padding: 1.5vw 2vw
+  background-color: #fff
+  border: 3px solid #8f673b
+  border-radius: 12px
+  font-size: 4vw
+  font-weight: bold
+  text-align: center
   cursor: pointer
 
 </style>

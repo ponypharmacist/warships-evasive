@@ -46,11 +46,11 @@ export default new Vuex.Store({
       },
 
       field: [
-        [{forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-        [{forbid: false}, {forbid: false}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-        [{forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-        [{forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
-        [{forbid: true}, {forbid: true}, {forbid: true}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
+        [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
         [{forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}, {forbid: false}],
@@ -116,12 +116,25 @@ export default new Vuex.Store({
     isControlDisabled: (state) => (row, col, size, direction) => {
       let aField = state[state.currentPlayer].field
       if (direction == 'up' && row - 1 >= 0) {
-        return aField[row - 1][col].mine ? true : (row - 2 >= 0 && aField[row - 2][col].ship)
+        if ( aField[row - 1][col].mine ) { return true }
+        if ( row - 2 >= 0 && aField[row - 2][col].ship ) { return true }
+        if ( row - 2 >= 0 && col - 1 >= 0 && aField[row - 2][col - 1].ship ) { return true }
+        if ( row - 2 >= 0 && col + 1 <= 9 && aField[row - 2][col + 1].ship ) { return true }
       } else if (direction == 'down' && row + size <= 9) {
-        return aField[row + size][col].mine ? true : (row + size + 1 <= 9 && aField[row + size + 1][col].ship)
+        if ( aField[row + size][col].mine ) { return true }
+        if ( row + size + 1 <= 9 && aField[row + size + 1][col].ship ) { return true }
+        if ( row + size + 1 <= 9 && col - 1 >= 0 && aField[row + size + 1][col - 1].ship ) { return true }
+        if ( row + size + 1 <= 9 && col + 1 <= 9 && aField[row + size + 1][col + 1].ship ) { return true }
       } else if (direction == 'left' && col - 1 >= 0) {
-        return aField[row][col - 1].mine ? true : (col - 2 >= 0 && aField[row][col - 2].ship)
+        if ( aField[row][col - 1].mine ) { return true }
+        if ( col - 2 >= 0 && aField[row][col - 2].ship ) { return true }
+        if ( col - 2 >= 0 && row - 1 >= 0 && aField[row - 1][col - 2].ship ) { return true }
+        if ( col - 2 >= 0 && row + 1 <= 9 && aField[row + 1][col - 2].ship ) { return true }
       } else if (direction == 'right' && col + size <= 9) {
+        if ( aField[row][col + size].mine ) { return true }
+        if ( col + size + 1 <= 9 && aField[row][col + size + 1].ship ) { return true }
+        if ( col + size + 1 <= 9 && row - 1 >= 0 && aField[row - 1][col + size + 1].ship ) { return true }
+        if ( col + size + 1 <= 9 && row + 1 <= 9 && aField[row + 1][col + size + 1].ship ) { return true }
         return aField[row][col + size].mine ? true : (col + size + 1 <= 9 && aField[row][col + size + 1].ship)
       } else {
         return false
@@ -195,9 +208,6 @@ export default new Vuex.Store({
           context.state.currentPlayer = 'playerOne'
           context.state.currentPhase = 'goPlayerOne'
           break
-        case 'placeShipsOne':
-          context.state.currentPhase = 'readyPlayerTwo'
-          break
         case 'readyPlayerTwo':
           context.state.currentPlayer = 'playerTwo'
           if (context.getters.getShipsAvailableAll == 0) {
@@ -206,12 +216,11 @@ export default new Vuex.Store({
           context.state.currentPhase = 'placeShipsTwo'
           }
           break
-        case 'placeShipsTwo':
-          context.state.currentPhase = 'readyPlayerOne'
-          break
+        case 'placeShipsOne':
         case 'goPlayerOne':
           context.state.currentPhase = 'readyPlayerTwo'
           break
+        case 'placeShipsTwo':
         case 'goPlayerTwo':
           context.state.currentPhase = 'readyPlayerOne'
           break

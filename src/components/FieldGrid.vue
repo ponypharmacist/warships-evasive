@@ -194,6 +194,12 @@ export default {
   background-color: rgba(255, 255, 255, 0.1)
   user-select: none
 
+.goPlayerOne .field-grid > div,
+.goPlayerTwo .field-grid > div,
+.goPlayerOne .field-grid > div:hover,
+.goPlayerTwo .field-grid > div:hover
+  background-color: rgba(255, 255, 255, 0.05)
+
 /* Grid interactions */
 .field-grid > div:hover
   background-color: rgba(255, 255, 255, 0.2)
@@ -212,6 +218,10 @@ export default {
 .field-grid > div.forbidden
   background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 50% 50%
 
+.goPlayerOne .field-grid > div.forbidden,
+.goPlayerTwo .field-grid > div.forbidden
+  background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 20% 20%
+
 .field-grid > div.mine
   background: transparent url('../assets/mine.svg') no-repeat 50% 50% / 75% 75%
 
@@ -219,7 +229,9 @@ export default {
   background: transparent url('../assets/explosion.svg') no-repeat 50% 50% / 100% 100%
 
 .field-grid > div.forbidden:after,
-.field-grid > div.isShip:after
+.field-grid > div.isShip:after,
+.goPlayerOne .field-grid > div:after,
+.goPlayerTwo .field-grid > div:after
   display: none
 
 .place-big .field-grid > div:hover:after
