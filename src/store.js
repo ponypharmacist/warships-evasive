@@ -79,12 +79,12 @@ export default new Vuex.Store({
       return state.currentPlayer
     },
 
-    getCurrentPlayerName: (state) => {
-      return state[state.currentPlayer].name
-    },
-
     getOpponent: (state) => {
       return state.opponent
+    },
+
+    getCurrentPlayerName: (state) => {
+      return state[state.currentPlayer].name
     },
 
     // Utility and mechanics
@@ -127,6 +127,7 @@ export default new Vuex.Store({
 
     isControlDisabled: (state) => (row, col, size, direction) => {
       let aField = state[state.currentPlayer].field
+      // Check for mines and ships in set directions
       if (direction == 'up' && row - 1 >= 0) {
         if ( aField[row - 1][col].mine ) { return true }
         if ( row - 2 >= 0 && aField[row - 2][col].ship ) { return true }
