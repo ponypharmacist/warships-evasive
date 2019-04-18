@@ -224,12 +224,24 @@ export default {
   #fieldMy .field-grid > div.forbidden
     background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 20% 20%
 
-.field-grid > div.mine
+#fieldTheir .field-grid > div.dead
+  background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 20% 20%
+
+.field-grid > div.mine,
+#fieldMy .field-grid > div.mine.forbidden,
+#fieldTheir .field-grid > div.mine.dead
   background: transparent url('../assets/mine.svg') no-repeat 50% 50% / 60% 60%
 
 .field-grid > div.mine.isShip
   border: 2px solid #644932
   background: #a47d52 url('../assets/explosion.svg') no-repeat 50% 50% / 75% 75%
+
+#fieldMy .field-grid > div.mine.isShip
+  position: relative
+  z-index: 1
+  border: none
+  background: transparent url('../assets/explosion.svg') no-repeat 50% 50% / 80% 80%
+
 
 .field-grid > div.forbidden:after,
 .field-grid > div.isShip:after,

@@ -11,9 +11,8 @@
     #fieldMy(:class = "this.placeShipTypeClass")
       FieldGrid(:player="this.getCurrentPlayer")
       .ship(v-for="ship in this.getShipsByPlayer(this.getCurrentPlayer)"
-            :class="ship.class" 
-            :style="ship.style"
-            :data="ship.isDamaged")
+            :class="[ship.classification, ship.isDamaged ? 'isDamaged' : '', ship.isDead ? 'isDead' : '']" 
+            :style="ship.style")
         ShipControls(:ship="ship")
 
     #fieldTheir

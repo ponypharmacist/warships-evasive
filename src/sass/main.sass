@@ -51,12 +51,14 @@ body
   bottom: -2vw
   background: transparent url('assets/pirate-parrot.svg') no-repeat 100% 100% / cover
 
+$field-width: 44vw
+
 #fieldMy,
 #fieldTheir
   position: absolute
   background-color: rgba(0, 0, 0, 0.1)
-  width: 44vw
-  height: 44vw
+  width: $field-width
+  height: $field-width
   bottom: 10vw
 
   overflow: hidden
@@ -100,8 +102,8 @@ body
 /* Ships */
 .ship
   position: absolute
-  width: 4.4vw
-  height: 4.4vw
+  width: 10%
+  height: 10%
   background-color: rgba(0, 0, 255, 0.1)
   touch-action: none
   user-select: none

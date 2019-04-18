@@ -25,16 +25,16 @@ export default new Vuex.Store({
         tiny: 4
       },
       field: [
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}]
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}]
       ],
       ships: [],
     },
@@ -50,16 +50,16 @@ export default new Vuex.Store({
         tiny: 4
       },
       field: [
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],
-        [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}]
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
+        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}]
       ],
       ships: [],
     },
@@ -153,6 +153,59 @@ export default new Vuex.Store({
       }
     },
 
+    getDamagedShip: (state) => (row, col) => {
+      let theirShips = state[state.opponent].ships
+      let targetShip = {
+        size: 1,
+        row: null,
+        col: null,
+        orientation: '',
+      }
+      // Get damaged ship specs
+      for (let ship of theirShips) {
+        for (let section of ship.tiles) {
+          if ( row == section.row && col == section.col ) {
+            targetShip.size = ship.size
+            targetShip.row = ship.row
+            targetShip.col = ship.col
+            targetShip.orientation = ship.orientation
+          }
+        }
+      }
+      return targetShip
+    },
+
+    isShipDead: (state) => (damagedShip) => {
+      let deadTilesCount = 0
+      let theirShips = state[state.opponent].ships
+      for (let ship of theirShips) {
+        if ( damagedShip.row == ship.tiles[0].row && damagedShip.col == ship.tiles[0].col ) {
+          if ( damagedShip.orientation == 'height') {
+            for (let i = 0; i < damagedShip.size; i++) {
+              if ( state[state.opponent].field[damagedShip.row + i][damagedShip.col].ship && state[state.opponent].field[damagedShip.row + i][damagedShip.col].mine ) {
+                deadTilesCount++
+              }
+            }
+          } else {
+            for (let i = 0; i < damagedShip.size; i++) {
+              if ( state[state.opponent].field[damagedShip.row][damagedShip.col + i].ship && state[state.opponent].field[damagedShip.row][damagedShip.col + i].mine ) {
+                deadTilesCount++
+              }
+            }
+          }
+        }
+      }
+      return deadTilesCount == damagedShip.size
+    },
+
+    checkWinCondition: (state) => {
+      let deadShipsNumber = 0
+      for (let ship of state[state.opponent].ships) {
+        if (ship.isDead) { deadShipsNumber++ }
+      }
+      return deadShipsNumber == 10
+    }
+
   },
 
   mutations: {
@@ -197,17 +250,63 @@ export default new Vuex.Store({
       }
     },
 
+    markShipDead (state, deadShip) {
+      let theirShips = state[state.opponent].ships
+      for (let ship of theirShips) {
+        if ( deadShip.row == ship.tiles[0].row && deadShip.col == ship.tiles[0].col ) {
+          ship.isDead = true
+        }
+      }
+    },
+
+    placeDeadTiles (state, deadShip) {
+      let deadTiles = []
+
+      if (deadShip.orientation == 'width') {
+        let rowWidth = deadShip.size + 2
+        for (let i = 0; i < rowWidth; i++) {
+          if ( 0 <= (deadShip.row - 1) && 0 <= (deadShip.col - 1 + i) && (deadShip.col - 1 + i) <= 9 ) {
+            deadTiles.push({ row: deadShip.row - 1, col: deadShip.col - 1 + i })
+          }
+          if ( (deadShip.row + 1) <= 9 && 0 <= (deadShip.col - 1 + i) && (deadShip.col - 1 + i) <= 9 ) {
+            deadTiles.push({ row: deadShip.row + 1, col: deadShip.col - 1 + i })
+          }
+        }
+        if( 0 <= (deadShip.col - 1) ) { deadTiles.push({ row: deadShip.row, col: deadShip.col - 1 }) }
+        if( (deadShip.col + deadShip.size) <= 9 ) { deadTiles.push({ row: deadShip.row, col: deadShip.col + deadShip.size }) }
+      } else {
+        let rowHeight = deadShip.size + 2
+        for (let j = 0; j < rowHeight; j++) {
+          if ( 0 <= (deadShip.col - 1) && 0 <= (deadShip.row - 1 + j) && (deadShip.row - 1 + j) <= 9 ) {
+            deadTiles.push({ col: deadShip.col - 1, row: deadShip.row - 1 + j })
+          }
+          if ( (deadShip.col + 1) <= 9 && 0 <= (deadShip.row - 1 + j) && (deadShip.row - 1 + j) <= 9 ) {
+            deadTiles.push({ col: deadShip.col + 1, row: deadShip.row - 1 + j })
+          }
+        }
+        if( 0 <= (deadShip.row - 1) ) { deadTiles.push({ row: deadShip.row - 1, col: deadShip.col }) }
+        if( (deadShip.row + deadShip.size) <= 9 ) { deadTiles.push({ row: deadShip.row + deadShip.size, col: deadShip.col }) }
+      }
+
+      for (let tile of deadTiles) {
+        state[state.opponent].field[tile.row][tile.col].dead = true
+      }
+    },
+
     placeShipHead (state, specs) {
       if (state[state.currentPlayer].availableShips[specs.type] >= 1) {
         let newShip = {
-          class: '',
+          classification: '',
           col: specs.col,
           row: specs.row,
           size: specs.size,
+          orientation: specs.orientation,
           tiles: specs.tiles,
-          style: 'left: ' + (specs.col * 4.4) + 'vw; top: ' + (specs.row * 4.4) + 'vw; ' + specs.orientation + ': ' + (specs.size * 4.4) + 'vw;'
+          isDamaged: false,
+          isDead: false,
+          style: 'left: ' + (specs.col * 10) + '%; top: ' + (specs.row * 10) + '%; ' + specs.orientation + ': ' + (specs.size * 10) + '%;'
         }
-        newShip.class = 'ship-' + state.shipPlaceType + ' ' + specs.orientation
+        newShip.classification = 'ship-' + state.shipPlaceType + ' ' + specs.orientation
         state[state.currentPlayer].ships.push(newShip)
         state[state.currentPlayer].availableShips[specs.type]--
       } else {
@@ -230,7 +329,7 @@ export default new Vuex.Store({
     resetField (state) {
       state[state.currentPlayer].ships = []
       state[state.currentPlayer].availableShips = { big: 1, medium: 2, small: 3, tiny: 4 }
-      state[state.currentPlayer].field = [[{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}], [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}], [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}], [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}], [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}], [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}], [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}], [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}],[{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}], [{forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}, {forbid: false, mine: false}]]
+      state[state.currentPlayer].field = [[{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],[{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}]]
     },
   },
   actions: {
