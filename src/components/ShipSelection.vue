@@ -119,27 +119,27 @@ $vw-unit: $size-vertical / 100 * 1.333
   background-size: auto 88%
 
 .ship-button:nth-child(2)
-  background-image: url('../assets/ship-vertical-3.png')
+  background-image: url('../assets/place-vertical-3.svg')
   background-size: auto 66%
 
 .ship-button:nth-child(3)
-  background-image: url('../assets/ship-vertical-2.png')
+  background-image: url('../assets/place-vertical-2.svg')
   background-size: auto 44%
 
 .ship-button:nth-child(4)
-  background-image: url('../assets/ship-1.png')
+  background-image: url('../assets/place-ship-1.svg')
   background-size: 20%
 
 .ship-button.horizontal:nth-child(1)
-  background-image: url('../assets/ship-horizontal-4.png')
+  background-image: url('../assets/place-horizontal-4.svg')
   background-size: 80% auto
 
 .ship-button.horizontal:nth-child(2)
-  background-image: url('../assets/ship-horizontal-3.png')
+  background-image: url('../assets/place-horizontal-3.svg')
   background-size: 60% auto
 
 .ship-button.horizontal:nth-child(3)
-  background-image: url('../assets/ship-horizontal-2.png')
+  background-image: url('../assets/place-horizontal-2.svg')
   background-size: 40% auto
 
 .ship-button:hover,

@@ -260,31 +260,31 @@ $ship-unit: $vh-unit * 4.4 * 1.333
 .place-big.orient-width .field-grid > div:hover:after
   width: $ship-unit * 4
   height: $ship-unit
-  background-image: url('../assets/ship-horizontal-4.png')
+  background-image: url('../assets/place-horizontal-4.svg')
 
 .place-medium .field-grid > div:hover:after
   width: $ship-unit
   height: $ship-unit * 3
-  background-image: url('../assets/ship-vertical-3.png')
+  background-image: url('../assets/place-vertical-3.svg')
 
 .place-medium.orient-width .field-grid > div:hover:after
   width: $ship-unit * 3
   height: $ship-unit
-  background-image: url('../assets/ship-horizontal-3.png')
+  background-image: url('../assets/place-horizontal-3.svg')
 
 .place-small .field-grid > div:hover:after
   width: $ship-unit
   height: $ship-unit * 2
-  background-image: url('../assets/ship-vertical-2.png')
+  background-image: url('../assets/place-vertical-2.svg')
 
 .place-small.orient-width .field-grid > div:hover:after
   width: $ship-unit * 2
   height: $ship-unit
-  background-image: url('../assets/ship-horizontal-2.png')
+  background-image: url('../assets/place-horizontal-2.svg')
 
 .place-tiny .field-grid > div:hover:after
   width: $ship-unit
   height: $ship-unit
-  background-image: url('../assets/ship-1.png')
+  background-image: url('../assets/place-ship-1.svg')
 
 </style>

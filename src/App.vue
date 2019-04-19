@@ -6,7 +6,7 @@
     CharacterBar
     #go-button(@click="advanceGamePhase()") Go!
     #settings ⚙️
-    #alerts {{ this.getAlertMessage }}
+    #alerts.koala {{ this.getAlertMessage }}
 
     #fieldMy(:class = "[this.placeShipTypeClass, this.isMovesLeft ? '' : 'no-moves-left']")
       FieldGrid(:player="this.getCurrentPlayer")
@@ -113,11 +113,12 @@ body
   cursor: pointer
 
 #alerts
-  width: $vw-unit * 80
+  display: flex
+  max-width: $vw-unit * 80
   height: $vw-unit * 6
   bottom: $vw-unit * 2
   left: $vw-unit * 10
-  padding: 0 $vw-unit * 3 0 $vw-unit * 10
+  padding: 0 $vw-unit * 3 0 $vw-unit * 12
   color: #ffffff
   background-color: rgba(0, 0, 0, 0.3)
   border-radius: $vw-unit * 1
@@ -127,11 +128,14 @@ body
 #alerts:before
   position: absolute
   content: ''
-  width: $vw-unit * 10
-  height: $vw-unit * 10
-  left: 0
-  bottom: $vw-unit * -2
+  width: $vw-unit * 8
+  height: $vw-unit * 8
+  left: $vw-unit * 2
+  bottom: 0
   background: transparent url('assets/pirate-parrot.svg') no-repeat 100% 100% / cover
+
+#alerts.koala:before
+  background: transparent url('assets/koala.svg') no-repeat 100% 100% / cover
 
 #fieldMy,
 #fieldTheir
