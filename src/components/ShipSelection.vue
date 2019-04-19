@@ -75,36 +75,40 @@ export default {
 
 <style lang="sass">
 /* Ship Selection Menu */
+$size-vertical: 95vh
+$vh-unit: $size-vertical / 100
+$vw-unit: $size-vertical / 100 * 1.333
+
 #shipSelection
   position: absolute
   display: flex
   flex-direction: column
-  width: 50vw
-  height: 47vw
-  bottom: 9vw
-  right: -50vw
-  padding: 3vw 5vw
+  width: $vw-unit * 50
+  height: $vw-unit * 45
+  bottom: $vw-unit * 9.5
+  right: $vw-unit * -50
+  padding: $vw-unit * 3 $vw-unit * 5
   background: transparent url('../assets/book.svg') no-repeat 50% 50% / cover
 
   transition: right 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)
 
 .placeShipsOne #shipSelection,
 .placeShipsTwo #shipSelection
-  right: 1vw
+  right: $vw-unit * 1
 
 /* Ship buttons */
 .ship-buttons
-  width: 40vw
-  height: 34vw
+  width: $vw-unit * 40
+  height: $vw-unit * 33.5
   display: flex
   flex-wrap: wrap
   justify-content: space-between
 
 .ship-button
   position: relative
-  width: 17vw
-  height: 14vw
-  margin-bottom: 3vw
+  width: $vw-unit * 17
+  height: $vw-unit * 14
+  margin-bottom: $vw-unit * 3
   border: 1px solid #bbb
   cursor: pointer
   background-repeat: no-repeat
@@ -112,31 +116,31 @@ export default {
 
 .ship-button:nth-child(1)
   background-image: url('../assets/place-vertical-4.svg')
-  background-size: 22px 88px
+  background-size: auto 88%
 
 .ship-button:nth-child(2)
   background-image: url('../assets/ship-vertical-3.png')
-  background-size: 22px 66px
+  background-size: auto 66%
 
 .ship-button:nth-child(3)
   background-image: url('../assets/ship-vertical-2.png')
-  background-size: 22px 44px
+  background-size: auto 44%
 
 .ship-button:nth-child(4)
   background-image: url('../assets/ship-1.png')
-  background-size: 22px 22px
+  background-size: 20%
 
 .ship-button.horizontal:nth-child(1)
   background-image: url('../assets/ship-horizontal-4.png')
-  background-size: 88px 22px
+  background-size: 80% auto
 
 .ship-button.horizontal:nth-child(2)
   background-image: url('../assets/ship-horizontal-3.png')
-  background-size: 66px 22px
+  background-size: 60% auto
 
 .ship-button.horizontal:nth-child(3)
   background-image: url('../assets/ship-horizontal-2.png')
-  background-size: 44px 22px
+  background-size: 40% auto
 
 .ship-button:hover,
 .ship-button.active
@@ -148,13 +152,13 @@ export default {
 
 .ship-button-amount
   position: absolute
-  width: 5vw
-  height: 4vw
-  top: -1vw
-  right: -1vw
+  width: $vw-unit * 5
+  height: $vw-unit * 4
+  top: $vw-unit * -1
+  right: $vw-unit * -1
   background-color: #fff
   border: 1px solid #bbb
-  line-height: 3.75vw
+  line-height: $vw-unit * 3.75
   font-weight: bold
   
 .ship-button.disabled .ship-button-amount
@@ -166,9 +170,9 @@ export default {
   justify-content: center
 
 .utility-button
-  padding: 1.5vw 2vw
-  margin: 0 2vw 0 0
-  border-radius: 12px
+  padding: $vw-unit * 1.5 $vw-unit * 2
+  margin: 0 $vw-unit * 2 0 0
+  border-radius: $vw-unit
   text-align: center
   font-weight: bold
   color: #fff
@@ -179,11 +183,11 @@ export default {
   background-color: rgba(0,111,11,1)
 
 .rotate-button
-  width: 5vw
+  width: $vw-unit * 5
   background-image: url('../assets/rotate.svg')
   background-repeat: no-repeat
   background-position: 50% 50%
-  background-size: 3vw 3vw
+  background-size: $vw-unit * 2.5 $vw-unit * 2.5
 
 .done-button
   margin-left: auto

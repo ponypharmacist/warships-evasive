@@ -59,7 +59,10 @@ export default {
 
 <style lang="sass">
 /* ShipControls */
-$ship-control-offset: calc(-4.4vw)
+$size-vertical: 95vh
+$vh-unit: $size-vertical / 100
+$vw-unit: $size-vertical / 100 * 1.333
+$ship-control-offset: $vw-unit * -4.4
 $base-control-bg-color: rgba(255,255,255,0.1)
 
 .ship-controls

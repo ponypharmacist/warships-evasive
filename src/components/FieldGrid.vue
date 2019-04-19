@@ -179,6 +179,10 @@ export default {
 
 <style lang="sass">
 /* Field Grid */
+$size-vertical: 95vh
+$vh-unit: $size-vertical / 100
+$ship-unit: $vh-unit * 4.4 * 1.333
+
 .field-grid
   display: grid
   width: 100%
@@ -250,38 +254,38 @@ export default {
   display: none
 
 .place-big .field-grid > div:hover:after
-  width: 4.4vw
-  height: 17.6vw
+  width: $ship-unit
+  height: $ship-unit * 4
   background-image: url('../assets/place-vertical-4.svg')
 
 .place-big.orient-width .field-grid > div:hover:after
-  width: 17.6vw
-  height: 4.4vw
+  width: $ship-unit * 4
+  height: $ship-unit
   background-image: url('../assets/ship-horizontal-4.png')
 
 .place-medium .field-grid > div:hover:after
-  width: 4.4vw
-  height: 13.2vw
+  width: $ship-unit
+  height: $ship-unit * 3
   background-image: url('../assets/ship-vertical-3.png')
 
 .place-medium.orient-width .field-grid > div:hover:after
-  width: 13.2vw
-  height: 4.4vw
+  width: $ship-unit * 3
+  height: $ship-unit
   background-image: url('../assets/ship-horizontal-3.png')
 
 .place-small .field-grid > div:hover:after
-  width: 4.4vw
-  height: 8.8vw
+  width: $ship-unit
+  height: $ship-unit * 2
   background-image: url('../assets/ship-vertical-2.png')
 
 .place-small.orient-width .field-grid > div:hover:after
-  width: 8.8vw
-  height: 4.4vw
+  width: $ship-unit * 2
+  height: $ship-unit
   background-image: url('../assets/ship-horizontal-2.png')
 
 .place-tiny .field-grid > div:hover:after
-  width: 4.4vw
-  height: 4.4vw
+  width: $ship-unit
+  height: $ship-unit
   background-image: url('../assets/ship-1.png')
 
 </style>

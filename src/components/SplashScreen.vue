@@ -43,13 +43,18 @@ export default {
 </script>
 
 <style lang="sass">
+@import '../sass/reset.sass';
 /* Splash Screen */
+$size-vertical: 95vh
+$vh-unit: $size-vertical / 100
+$vw-unit: $size-vertical / 100 * 1.333
+
 #game-menu,
 #ready-player-one,
 #ready-player-two
   position: absolute
   z-index: 50
-  width: 100vw
+  width: $vw-unit * 100
   height: 100vh
   top: -100vh
 
@@ -58,7 +63,7 @@ export default {
   justify-content: center
   align-items: center
   background: #fff url('../assets/bg-ready.svg') no-repeat 50% 50% / auto 100%
-  padding: 10vw
+  padding: $vw-unit * 10
 
   transition: all 0.35s linear
   transition-delay: 0.25s
@@ -77,21 +82,21 @@ export default {
   top: 0
 
 .splash-screen-title
-  padding: 1vw 2vw
-  margin-bottom: 4vw
-  font-size: 6vw
+  padding: $vw-unit * 1 $vw-unit * 2
+  margin-bottom: $vw-unit * 4
+  font-size: $vw-unit * 6
   font-weight: bold
   background-color: rgba(255,255,255,0.8)
 
 .ready-button,
 .new-game-button
   display: inline-block
-  width: 28vw
-  padding: 1.5vw 2vw
+  width: $vw-unit * 28
+  padding: $vw-unit * 1.5 $vw-unit * 2
   background-color: #fff
   border: 3px solid #8f673b
   border-radius: 12px
-  font-size: 4vw
+  font-size: $vw-unit * 4
   font-weight: bold
   text-align: center
   cursor: pointer
