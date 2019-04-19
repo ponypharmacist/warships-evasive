@@ -61,10 +61,11 @@ export default {
   padding: 10vw
 
   transition: all 0.35s linear
+  transition-delay: 0.25s
 
 #game-menu
   top: 0
-  transition: all 1.5s linear
+  transition: top 1.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)
   transition-delay: 0.35s
   background: #fff url('../assets/bg-menu.jpg') no-repeat 50% 50% / cover
 

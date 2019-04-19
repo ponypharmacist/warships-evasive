@@ -86,7 +86,7 @@ export default {
   padding: 3vw 5vw
   background: transparent url('../assets/book.svg') no-repeat 50% 50% / cover
 
-  transition: all 0.35s linear
+  transition: right 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)
 
 .placeShipsOne #shipSelection,
 .placeShipsTwo #shipSelection
@@ -111,7 +111,7 @@ export default {
   background-position: 50% 50%
 
 .ship-button:nth-child(1)
-  background-image: url('../assets/ship-vertical-4.png')
+  background-image: url('../assets/place-vertical-4.svg')
   background-size: 22px 88px
 
 .ship-button:nth-child(2)

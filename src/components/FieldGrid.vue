@@ -252,7 +252,7 @@ export default {
 .place-big .field-grid > div:hover:after
   width: 4.4vw
   height: 17.6vw
-  background-image: url('../assets/ship-vertical-4.png')
+  background-image: url('../assets/place-vertical-4.svg')
 
 .place-big.orient-width .field-grid > div:hover:after
   width: 17.6vw

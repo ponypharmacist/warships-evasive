@@ -2,13 +2,13 @@
   
   .ship-controls
     .ship-controls-up(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'up') }"
-                      @click="this.moveShip(ship.row, ship.col, ship.size, 'up')")
+                      @click="moveShip(ship.row, ship.col, ship.size, 'up')")
     .ship-controls-right(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'right') }"
-                      @click="this.moveShip(ship.row, ship.col, ship.size, 'right')")
+                      @click="moveShip(ship.row, ship.col, ship.size, 'right')")
     .ship-controls-down(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'down') }"
-                      @click="this.moveShip(ship.row, ship.col, ship.size, 'down')")
+                      @click="moveShip(ship.row, ship.col, ship.size, 'down')")
     .ship-controls-left(:class="{ disabled: this.isControlDisabled(ship.row, ship.col, ship.size, 'left') }"
-                      @click="this.moveShip(ship.row, ship.col, ship.size, 'left')")
+                      @click="moveShip(ship.row, ship.col, ship.size, 'left')")
 
 </template>
 
@@ -17,7 +17,6 @@ import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'ShipControls',
-
   props: {
     ship: Object,
   },
@@ -30,12 +29,28 @@ export default {
 
   methods: {
     ...mapMutations([
-      'setShipType',
+      'moveShipTiles',
+      'removeForbiddenTiles',
+      'placeForbiddenTiles',
     ]),
 
     moveShip: function (row, col, size, direction) {
-      // eslint-disable-next-line
-      console.log(row, col, size, direction)
+      // move ship tiles
+      this.moveShipTiles({row: row, col: col, size: size, direction: direction})
+
+      if (direction == 'down') {
+        let allowTiles = [{ row: row, col: col }]
+        this.removeForbiddenTiles (allowTiles)
+        let forbidTiles = [{ row: row, col: col }]
+        this.placeForbiddenTiles (forbidTiles)
+      }
+      // -3 forbids from the 'back'
+      // +1 forbid in place of last tile
+      // -1 forbid in front
+      // +3 forbids two tiles ahead of 'front'
+      // new 'row' and 'col'
+      // pop old ship tile
+      // push new ship tile
     },
   }
 

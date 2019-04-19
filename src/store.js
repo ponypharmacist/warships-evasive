@@ -126,29 +126,29 @@ export default new Vuex.Store({
     },
 
     isControlDisabled: (state) => (row, col, size, direction) => {
-      let aField = state[state.currentPlayer].field
+      let grid = state[state.currentPlayer].field
       // Check for mines and ships in set directions
       if (direction == 'up' && row - 1 >= 0) {
-        if ( aField[row - 1][col].mine ) { return true }
-        if ( row - 2 >= 0 && aField[row - 2][col].ship ) { return true }
-        if ( row - 2 >= 0 && col - 1 >= 0 && aField[row - 2][col - 1].ship ) { return true }
-        if ( row - 2 >= 0 && col + 1 <= 9 && aField[row - 2][col + 1].ship ) { return true }
+        if ( grid[row - 1][col].mine ) { return true }
+        if ( row - 2 >= 0 && grid[row - 2][col].ship ) { return true }
+        if ( row - 2 >= 0 && col - 1 >= 0 && grid[row - 2][col - 1].ship ) { return true }
+        if ( row - 2 >= 0 && col + 1 <= 9 && grid[row - 2][col + 1].ship ) { return true }
       } else if (direction == 'down' && row + size <= 9) {
-        if ( aField[row + size][col].mine ) { return true }
-        if ( row + size + 1 <= 9 && aField[row + size + 1][col].ship ) { return true }
-        if ( row + size + 1 <= 9 && col - 1 >= 0 && aField[row + size + 1][col - 1].ship ) { return true }
-        if ( row + size + 1 <= 9 && col + 1 <= 9 && aField[row + size + 1][col + 1].ship ) { return true }
+        if ( grid[row + size][col].mine ) { return true }
+        if ( row + size + 1 <= 9 && grid[row + size + 1][col].ship ) { return true }
+        if ( row + size + 1 <= 9 && col - 1 >= 0 && grid[row + size + 1][col - 1].ship ) { return true }
+        if ( row + size + 1 <= 9 && col + 1 <= 9 && grid[row + size + 1][col + 1].ship ) { return true }
       } else if (direction == 'left' && col - 1 >= 0) {
-        if ( aField[row][col - 1].mine ) { return true }
-        if ( col - 2 >= 0 && aField[row][col - 2].ship ) { return true }
-        if ( col - 2 >= 0 && row - 1 >= 0 && aField[row - 1][col - 2].ship ) { return true }
-        if ( col - 2 >= 0 && row + 1 <= 9 && aField[row + 1][col - 2].ship ) { return true }
+        if ( grid[row][col - 1].mine ) { return true }
+        if ( col - 2 >= 0 && grid[row][col - 2].ship ) { return true }
+        if ( col - 2 >= 0 && row - 1 >= 0 && grid[row - 1][col - 2].ship ) { return true }
+        if ( col - 2 >= 0 && row + 1 <= 9 && grid[row + 1][col - 2].ship ) { return true }
       } else if (direction == 'right' && col + size <= 9) {
-        if ( aField[row][col + size].mine ) { return true }
-        if ( col + size + 1 <= 9 && aField[row][col + size + 1].ship ) { return true }
-        if ( col + size + 1 <= 9 && row - 1 >= 0 && aField[row - 1][col + size + 1].ship ) { return true }
-        if ( col + size + 1 <= 9 && row + 1 <= 9 && aField[row + 1][col + size + 1].ship ) { return true }
-        return aField[row][col + size].mine ? true : (col + size + 1 <= 9 && aField[row][col + size + 1].ship)
+        if ( grid[row][col + size].mine ) { return true }
+        if ( col + size + 1 <= 9 && grid[row][col + size + 1].ship ) { return true }
+        if ( col + size + 1 <= 9 && row - 1 >= 0 && grid[row - 1][col + size + 1].ship ) { return true }
+        if ( col + size + 1 <= 9 && row + 1 <= 9 && grid[row + 1][col + size + 1].ship ) { return true }
+        return grid[row][col + size].mine ? true : (col + size + 1 <= 9 && grid[row][col + size + 1].ship)
       } else {
         return false
       }
@@ -156,20 +156,17 @@ export default new Vuex.Store({
 
     getDamagedShip: (state) => (row, col) => {
       let theirShips = state[state.opponent].ships
-      let targetShip = {
-        size: 1,
-        row: null,
-        col: null,
-        orientation: '',
-      }
+      let targetShip = {}
       // Get damaged ship specs
       for (let ship of theirShips) {
         for (let section of ship.tiles) {
           if ( row == section.row && col == section.col ) {
-            targetShip.size = ship.size
-            targetShip.row = ship.row
-            targetShip.col = ship.col
-            targetShip.orientation = ship.orientation
+            targetShip = {
+              size: ship.size,
+              row: ship.row,
+              col: ship.col,
+              orientation: ship.orientation,
+            }
           }
         }
       }
@@ -211,15 +208,15 @@ export default new Vuex.Store({
 
   mutations: {
     // General Interface
-    sendAlertMessage: (state, message) => {
+    sendAlertMessage (state, message) {
       state.alertMessage = message
     },
 
-    setCurrentPhase: (state, phase) => {
+    setCurrentPhase (state, phase) {
       state.currentPhase = phase
     },
 
-    updateCurrentPlayerName: (state, e) => {
+    updateCurrentPlayerName (state, e) {
       state[state.currentPlayer].name = e.target.value
     },
 
@@ -246,6 +243,7 @@ export default new Vuex.Store({
         for (let section of ship.tiles) {
           if ( specs.row == section.row && specs.col == section.col ) {
             ship.isDamaged = true
+            return
           }
         }
       }
@@ -256,6 +254,7 @@ export default new Vuex.Store({
       for (let ship of theirShips) {
         if ( deadShip.row == ship.tiles[0].row && deadShip.col == ship.tiles[0].col ) {
           ship.isDead = true
+          return
         }
       }
     },
@@ -321,9 +320,57 @@ export default new Vuex.Store({
       }
     },
 
+    moveShipTiles (state, movingShip) {
+      let myShips = state[state.currentPlayer].ships
+      // Get damaged ship specs
+      for (let ship of myShips) {
+        if ( movingShip.row == ship.row && movingShip.col == ship.col ) {
+          if ( movingShip.direction == 'up' ) {
+            // mark new ship cell and unmark old ship cell
+            state[state.currentPlayer].field[ship.row - 1][ship.col].ship = true
+            state[state.currentPlayer].field[ship.row - 1 + ship.size][ship.col].ship = false
+            // change ship coordinates
+            ship.row--
+            ship.style = 'left: ' + (ship.col * 10) + '%; top: ' + (ship.row * 10) + '%; ' + ship.orientation + ': ' + (ship.size * 10) + '%;'
+            // pop'n'shift or push'n'unshift ship tiles array
+            ship.tiles.pop()
+            ship.tiles.unshift({row: ship.row, col: ship.col })
+          } else if ( movingShip.direction == 'down' ) {
+            state[state.currentPlayer].field[ship.row + ship.size][ship.col].ship = true
+            state[state.currentPlayer].field[ship.row][ship.col].ship = false
+            ship.row++
+            ship.style = 'left: ' + (ship.col * 10) + '%; top: ' + (ship.row * 10) + '%; ' + ship.orientation + ': ' + (ship.size * 10) + '%;'
+            ship.tiles.shift()
+            ship.tiles.push({row: ship.row + ship.size, col: ship.col })
+          } else if ( movingShip.direction == 'left' ) {
+            state[state.currentPlayer].field[ship.row][ship.col - 1].ship = true
+            state[state.currentPlayer].field[ship.row][ship.col - 1 + ship.size].ship = false
+            ship.col--
+            ship.style = 'left: ' + (ship.col * 10) + '%; top: ' + (ship.row * 10) + '%; ' + ship.orientation + ': ' + (ship.size * 10) + '%;'
+            ship.tiles.pop()
+            ship.tiles.unshift({row: ship.row, col: ship.col })
+          } else if ( movingShip.direction == 'right' ) {
+            state[state.currentPlayer].field[ship.row][ship.col + ship.size].ship = true
+            state[state.currentPlayer].field[ship.row][ship.col].ship = false
+            ship.col++
+            ship.style = 'left: ' + (ship.col * 10) + '%; top: ' + (ship.row * 10) + '%; ' + ship.orientation + ': ' + (ship.size * 10) + '%;'
+            ship.tiles.shift()
+            ship.tiles.push({row: ship.row, col: ship.col + ship.size })
+          }
+          return
+        }
+      }
+    },
+
     placeForbiddenTiles (state, forbidTiles) {
       for (let tile of forbidTiles) {
         state[state.currentPlayer].field[tile.row][tile.col].forbid = true
+      }
+    },
+
+    removeForbiddenTiles (state, forbidTiles) {
+      for (let tile of forbidTiles) {
+        state[state.currentPlayer].field[tile.row][tile.col].forbid = false
       }
     },
 
@@ -333,6 +380,8 @@ export default new Vuex.Store({
       state[state.currentPlayer].field = [[{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],[{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}]]
     },
   },
+
+
   actions: {
     advanceGamePhase (context) {
       switch (context.state.currentPhase) {
