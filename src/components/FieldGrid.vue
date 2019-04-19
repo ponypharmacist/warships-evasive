@@ -10,7 +10,7 @@
     template(v-if="this.getCurrentPlayer == this.player && (this.getCurrentPhase == 'goPlayerOne' || this.getCurrentPhase == 'goPlayerTwo')")
       template(v-for="(row, indexRow) in this.getFieldByParams(this.player)")
         div(v-for="(cell, indexCell) in row"
-            :class="{ forbidden: cell.forbid, isShip: cell.ship, mine: cell.mine }")
+            :class="{ isShip: cell.ship, mine: cell.mine }")
 
 </template>
 
@@ -54,7 +54,7 @@ export default {
       let type = this.shipPlaceType
       // Check if there are available ships of selected type
       if ( this.getShipsAvailableByType(type) <= 0 ) {
-        this.sendAlertMessage('No more ships of this size left to place.')
+        this.sendAlertMessage('Все корабли запущены. Пора идти в атаку.')
         return
       }
       // Determine size
@@ -155,14 +155,14 @@ export default {
       }
       // 1. Check if ship sticks outside the board
       if (shipEnd.col > 9 || shipEnd.row > 9) {
-        this.sendAlertMessage('Ship cant stick outside the board!')
+        this.sendAlertMessage('Корабль никак не может торчать за картой!')
         return false
       }
       // 2. Check if ship tiles will cross with forbidden
       // 2.1. Check each ship tile against forbidden cells and ship cells
       for (let tile of shipTiles) {
         if ( this.isTileForbidden(tile.row, tile.col) || this.isTileShip(tile.row, tile.col) ) {
-          this.sendAlertMessage('Ship cant place on occupied tiles!')
+          this.sendAlertMessage('Таранить будем чужие корабли, свои не надо.')
           return false
         }
       }
@@ -170,7 +170,7 @@ export default {
     },
 
     printForbidden () {
-      this.sendAlertMessage('This place is not empty!')
+      this.sendAlertMessage('Тут уже что-то есть!')
     },
   }
 
@@ -201,7 +201,7 @@ $ship-unit: $vh-unit * 4.4 * 1.333
 .goPlayerTwo
   #fieldMy .field-grid > div,
   #fieldMy .field-grid > div:hover
-    background-color: rgba(255, 255, 255, 0.05)
+    background-color: rgba(255, 255, 255, 0.1)
 
 /* Grid interactions */
 .field-grid > div:hover
@@ -221,12 +221,11 @@ $ship-unit: $vh-unit * 4.4 * 1.333
 .field-grid > div.forbidden
   background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 50% 50%
 
-.goPlayerOne,
-.goPlayerTwo,
 .readyPlayerOne,
 .readyPlayerTwo
   #fieldMy .field-grid > div.forbidden
-    background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 20% 20%
+    background-color: rgba(255, 255, 255, 0.1)
+    background-image: none
 
 #fieldTheir .field-grid > div.dead
   background: transparent url('../assets/cross.svg') no-repeat 50% 50% / 20% 20%

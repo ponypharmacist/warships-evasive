@@ -30,27 +30,13 @@ export default {
   methods: {
     ...mapMutations([
       'moveShipTiles',
-      'removeForbiddenTiles',
-      'placeForbiddenTiles',
+      'reduceMovesAvailable',
     ]),
 
     moveShip: function (row, col, size, direction) {
       // move ship tiles
-      this.moveShipTiles({row: row, col: col, size: size, direction: direction})
-
-      if (direction == 'down') {
-        let allowTiles = [{ row: row, col: col }]
-        this.removeForbiddenTiles (allowTiles)
-        let forbidTiles = [{ row: row, col: col }]
-        this.placeForbiddenTiles (forbidTiles)
-      }
-      // -3 forbids from the 'back'
-      // +1 forbid in place of last tile
-      // -1 forbid in front
-      // +3 forbids two tiles ahead of 'front'
-      // new 'row' and 'col'
-      // pop old ship tile
-      // push new ship tile
+      this.moveShipTiles ({row: row, col: col, size: size, direction: direction})
+      this.reduceMovesAvailable()
     },
   }
 
@@ -72,15 +58,16 @@ $base-control-bg-color: rgba(255,255,255,0.1)
 
 .isDamaged,
 .placeShipsOne,
-.placeShipsTwo
+.placeShipsTwo,
+.no-moves-left
   .ship-controls
     display: none
 
 .ship-controls > div
   position: absolute
-  width: 4.4vw
-  height: 4.4vw
-  border-radius: 1vw
+  width: $vw-unit * 4.4
+  height: $vw-unit * 4.4
+  border-radius: $vw-unit
   cursor: pointer
 
 .ship-controls > div:hover

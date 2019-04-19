@@ -20,6 +20,7 @@ export default {
 
   computed: {
     ...mapGetters([
+      'isShotsLeft',
       'getFieldByParams',
       'opponentFieldCheck',
       'getDamagedShip',
@@ -35,13 +36,21 @@ export default {
       'markShipDamaged',
       'markShipDead',
       'placeDeadTiles',
+      'reduceShotsAvailable',
     ]),
 
     fireCannon (row, col) {
-      let alertResult = 'You miss.'
+      let alertResult = 'Мимо.'
+      // 0. Check if any shots left for this turn
+      if (!this.isShotsLeft) {
+        alertResult = 'Пиратский бюджет позволяет тратить лишь одну бомбу в ход, капитан.'
+        this.sendAlertMessage(alertResult)
+        return
+      }
+      this.reduceShotsAvailable()
       // 0. Place a mine mark
       if ( this.opponentFieldCheck(row, col, 'mine') ) {
-        alertResult = 'This tile is already hit, try another one.'
+        alertResult = 'Сюда мы уже стреляли, капитан.'
       } else {
         this.placeMine({row: row, col: col})
       }
@@ -49,20 +58,20 @@ export default {
       if ( this.opponentFieldCheck(row, col, 'ship') ) {
         // 2. Mark ship as isDamaged
         this.markShipDamaged({row: row, col: col})
-        alertResult = 'Let them burn!'
+        alertResult = 'Вражеский корабль поражен!'
         // 3. Is this ship completely dead?
         let damagedShip = this.getDamagedShip(row, col)
         if ( this.isShipDead(damagedShip) ) {
           this.markShipDead(damagedShip)
           this.placeDeadTiles(damagedShip)
-          alertResult = 'Ship is down! Rape and pillage!'
+          alertResult = 'Вражеский корабль потоплен! Насилуйте сундуки и вскрывайте девок!'
           if ( this.checkWinCondition ) {
-            alertResult = '>>> YOU WIN <<<'
+            alertResult = 'Все враги повержены. Ты - самый крутой пират этих морей, капитан!'
           }
         }
       }
       // 4. Display alert
-      this.sendAlertMessage('Fire the cannon: (' + (row + 1) + ', ' + (col + 1) + ')! ' + alertResult)
+      this.sendAlertMessage(alertResult)
     },
 
   }

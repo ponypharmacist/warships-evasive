@@ -15,7 +15,7 @@ export default new Vuex.Store({
     shipPlaceOrientation: 'height',
 
     playerOne: {
-      name: 'Flame Princess',
+      name: 'Лихая Русалка',
       movesAvailable: 1,
       shotsAvailable: 1,
       availableShips: {
@@ -40,7 +40,7 @@ export default new Vuex.Store({
     },
 
     playerTwo: {
-      name: 'Wolf Girl',
+      name: 'Волчья Голова',
       movesAvailable: 1,
       shotsAvailable: 1,
       availableShips: {
@@ -88,6 +88,14 @@ export default new Vuex.Store({
     },
 
     // Utility and mechanics
+    isMovesLeft: (state) => {
+      return state[state.currentPlayer].movesAvailable > 0
+    },
+
+    isShotsLeft: (state) => {
+      return state[state.currentPlayer].shotsAvailable > 0
+    },
+
     getFieldByParams: (state) => (player) => {
       return state[player].field
     },
@@ -221,6 +229,14 @@ export default new Vuex.Store({
     },
 
     // Utility and Mechanics
+    reduceMovesAvailable (state) {
+      state[state.currentPlayer].movesAvailable--
+    },
+
+    reduceShotsAvailable (state) {
+      state[state.currentPlayer].shotsAvailable--
+    },
+
     setShipType (state, type) {
       state.shipPlaceType = type
     },
@@ -368,12 +384,6 @@ export default new Vuex.Store({
       }
     },
 
-    removeForbiddenTiles (state, forbidTiles) {
-      for (let tile of forbidTiles) {
-        state[state.currentPlayer].field[tile.row][tile.col].forbid = false
-      }
-    },
-
     resetField (state) {
       state[state.currentPlayer].ships = []
       state[state.currentPlayer].availableShips = { big: 1, medium: 2, small: 3, tiny: 4 }
@@ -389,12 +399,18 @@ export default new Vuex.Store({
           context.state.currentPlayer = 'playerOne'
           context.state.opponent = 'playerTwo'
           context.state.currentPhase = 'goPlayerOne'
+          context.state.alertMessage = 'Yarr!'
+          context.state[context.state.currentPlayer].movesAvailable = 1
+          context.state[context.state.currentPlayer].shotsAvailable = 1
           break
         case 'readyPlayerTwo':
           context.state.currentPlayer = 'playerTwo'
           context.state.opponent = 'playerOne'
+          context.state.alertMessage = 'Yarr!'
           if (context.getters.getShipsAvailableAll == 0) {
             context.state.currentPhase = 'goPlayerTwo'
+            context.state[context.state.currentPlayer].movesAvailable = 1
+            context.state[context.state.currentPlayer].shotsAvailable = 1
           } else {
           context.state.currentPhase = 'placeShipsTwo'
           }

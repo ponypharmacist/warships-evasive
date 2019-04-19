@@ -3,7 +3,7 @@
   #character-bar
     #avatar(:class="this.getCurrentPlayer")
     input.player-name(:value="this.getCurrentPlayerName" @input="this.updatePlayerName")
-    .player-title  as {{ this.getCurrentPlayer == 'playerOne' ? 'Player One' : 'Player Two' }}
+    .player-title в роли {{ this.getCurrentPlayer == 'playerOne' ? 'Первого Капитана' : 'Второго Капитана' }}
     #adversary(:class="this.getCurrentPlayer")
 
 </template>
@@ -91,7 +91,7 @@ $vw-unit: $size-vertical / 100 * 1.333
 
 .player-name
   position: relative
-  width: $vw-unit * 35
+  width: $vw-unit * 38
   z-index: 5
   border: none
   background-color: rgba(169,137,102,0.75)
@@ -112,7 +112,6 @@ $vw-unit: $size-vertical / 100 * 1.333
   padding: 0 0 0 $vw-unit * 0.25
   font-family: Georgia, 'Times New Roman', Times, serif
   font-size: $vw-unit * 2
-  font-weight: bold
   color: rgba(64,41,22,0.8)
 
 </style>

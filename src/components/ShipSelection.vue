@@ -20,8 +20,8 @@
 
     .utility-buttons
       .utility-button.rotate-button(@click="toggleOrientation()")
-      .utility-button.reset-button(@click="resetField()") Reset
-      .utility-button.done-button(@click="donePlacing()") Done 
+      .utility-button.reset-button(@click="resetField()") Сброс
+      .utility-button.done-button(@click="donePlacing()") Готово! 
       // Transition game phase pO, rT, pT, rO
 
 </template>
@@ -62,7 +62,7 @@ export default {
 
     donePlacing () {
       if (this.getShipsAvailableAll !== 0) {
-        this.sendAlertMessage('We\'ll need all the ships in this battle, mate! Deploy all of them.')
+        this.sendAlertMessage('Капитан, в этой битве нам понадобятся все корабли! Спусти же их на воду.')
       } else {
         this.advanceGamePhase()
       }
