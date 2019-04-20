@@ -47,12 +47,12 @@ export default {
         this.sendAlertMessage(alertResult)
         return
       }
-      this.reduceShotsAvailable()
       // 0. Place a mine mark
-      if ( this.opponentFieldCheck(row, col, 'mine') ) {
+      if ( this.opponentFieldCheck(row, col, 'mine') || this.opponentFieldCheck(row, col, 'dead') ) {
         alertResult = 'Сюда мы уже стреляли, капитан.'
       } else {
         this.placeMine({row: row, col: col})
+        this.reduceShotsAvailable()
       }
       // 1. Is this a hit?
       if ( this.opponentFieldCheck(row, col, 'ship') ) {

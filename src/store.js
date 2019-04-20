@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    alertMessage: 'Yarr!',
+    alertMessage: 'Hello, beautiful!',
+    turnCount: 0,
     // gameMenu, readyPlayerOne, placeShipsOne, readyPlayerTwo, placeShipsTwo, readyPlayerOne, goPlayerOne, readyPlayerTwo, goPlayerTwo
     currentPhase: 'gameMenu',
     currentPlayer: 'playerOne',
@@ -24,18 +25,7 @@ export default new Vuex.Store({
         small: 3,
         tiny: 4
       },
-      field: [
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}]
-      ],
+      field: [],
       ships: [],
     },
 
@@ -49,18 +39,7 @@ export default new Vuex.Store({
         small: 3,
         tiny: 4
       },
-      field: [
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],
-        [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}]
-      ],
+      field: [],
       ships: [],
     },
   },
@@ -228,6 +207,19 @@ export default new Vuex.Store({
       state[state.currentPlayer].name = e.target.value
     },
 
+    populateFieldByPlayer (state, player) {
+      let targetPlayer = player ? player : state.currentPlayer
+      let tiles = [] 
+      for (let i = 0; i < 10; i++) {
+        let row = []
+        for (let k = 0; k < 10; k++) {
+          row.push({forbid: false, mine: false, dead: false})
+        }
+        tiles.push(row)
+      }
+      state[targetPlayer].field = tiles
+    },
+
     // Utility and Mechanics
     reduceMovesAvailable (state) {
       state[state.currentPlayer].movesAvailable--
@@ -387,7 +379,6 @@ export default new Vuex.Store({
     resetField (state) {
       state[state.currentPlayer].ships = []
       state[state.currentPlayer].availableShips = { big: 1, medium: 2, small: 3, tiny: 4 }
-      state[state.currentPlayer].field = [[{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}],[{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}], [{forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}, {forbid: false, mine: false, dead: false}]]
     },
   },
 
@@ -399,7 +390,8 @@ export default new Vuex.Store({
           context.state.currentPlayer = 'playerOne'
           context.state.opponent = 'playerTwo'
           context.state.currentPhase = 'goPlayerOne'
-          context.state.alertMessage = 'Yarr!'
+          context.state.turnCount++
+          context.state.alertMessage = 'Шел ' + context.state.turnCount + ' день сражений.'
           context.state[context.state.currentPlayer].movesAvailable = 1
           context.state[context.state.currentPlayer].shotsAvailable = 1
           break
@@ -411,6 +403,7 @@ export default new Vuex.Store({
             context.state.currentPhase = 'goPlayerTwo'
             context.state[context.state.currentPlayer].movesAvailable = 1
             context.state[context.state.currentPlayer].shotsAvailable = 1
+            context.state.alertMessage = 'Шел ' + context.state.turnCount + ' день сражений.'
           } else {
           context.state.currentPhase = 'placeShipsTwo'
           }

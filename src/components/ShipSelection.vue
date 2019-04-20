@@ -20,7 +20,7 @@
 
     .utility-buttons
       .utility-button.rotate-button(@click="toggleOrientation()")
-      .utility-button.reset-button(@click="resetField()") Сброс
+      .utility-button.reset-button(@click="resetPlacement()") Сброс
       .utility-button.done-button(@click="donePlacing()") Готово! 
       // Transition game phase pO, rT, pT, rO
 
@@ -50,6 +50,7 @@ export default {
       'toggleOrientation',
       'resetField',
       'sendAlertMessage',
+      'populateFieldByPlayer',
     ]),
 
     shipButtonClass (shipClass) {
@@ -58,6 +59,11 @@ export default {
         horizontal: this.shipPlaceOrientation == 'height' ? false : true,
         disabled: this.getShipsAvailableByType(shipClass) == 0
       }
+    },
+
+    resetPlacement () {
+      this.populateFieldByPlayer()
+      this.resetField()
     },
 
     donePlacing () {

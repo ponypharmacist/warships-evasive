@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import SplashScreen from './components/SplashScreen.vue'
 import CharacterBar from './components/CharacterBar.vue'
 import ShipSelection from './components/ShipSelection.vue'
@@ -62,10 +62,18 @@ export default {
   },
 
   methods: {
+    ...mapMutations([
+      'populateFieldByPlayer',
+    ]),
     ...mapActions([
       'advanceGamePhase',
     ]),
-  }
+  },
+
+  created () {
+    this.populateFieldByPlayer('playerOne')
+    this.populateFieldByPlayer('playerTwo')
+  },
 
 }
 </script>
