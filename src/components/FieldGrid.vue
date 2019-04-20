@@ -179,7 +179,7 @@ export default {
 
 <style lang="sass">
 /* Field Grid */
-$size-vertical: 95vh
+$size-vertical: 100vh
 $vh-unit: $size-vertical / 100
 $ship-unit: $vh-unit * 4.4 * 1.333
 

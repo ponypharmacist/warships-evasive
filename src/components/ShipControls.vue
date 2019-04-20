@@ -45,7 +45,7 @@ export default {
 
 <style lang="sass">
 /* ShipControls */
-$size-vertical: 95vh
+$size-vertical: 100vh
 $vh-unit: $size-vertical / 100
 $vw-unit: $size-vertical / 100 * 1.333
 $ship-control-offset: $vw-unit * -4.4

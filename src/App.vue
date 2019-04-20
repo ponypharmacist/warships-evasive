@@ -5,8 +5,8 @@
 
     CharacterBar
     #go-button(@click="advanceGamePhase()") Go!
-    #settings ⚙️
-    #alerts.koala {{ this.getAlertMessage }}
+    #settings(@click="toggleSettings()") ⚙️
+    #alerts {{ this.getAlertMessage }}
 
     #fieldMy(:class = "[this.placeShipTypeClass, this.isMovesLeft ? '' : 'no-moves-left']")
       FieldGrid(:player="this.getCurrentPlayer")
@@ -19,8 +19,6 @@
       FieldGridOpponent(:player="this.getOpponent")
     
     ShipSelection
-
-    // img(alt="Vue logo" src="./assets/logo.png")
 
 </template>
 
@@ -64,6 +62,7 @@ export default {
   methods: {
     ...mapMutations([
       'populateFieldByPlayer',
+      'toggleSettings',
     ]),
     ...mapActions([
       'advanceGamePhase',
@@ -81,7 +80,7 @@ export default {
 <style lang="sass">
 /* @import 'sass/reset.sass'; */
 /* Main styles */
-$size-vertical: 95vh
+$size-vertical: 100vh
 $vh-unit: $size-vertical / 100
 $vw-unit: $size-vertical / 100 * 1.333
 $size-horizontal: $size-vertical * 1.333
@@ -90,10 +89,10 @@ $field-width: $vw-unit * 44
 body
   display: flex
   min-height: 100vh
-  background: #f1f1f1 url('assets/bg-body.jpg') repeat 0 0
+  background-color: #000
 
 #app
-  font-family: 'Avenir', Helvetica, Arial, sans-serif
+  font-family: 'Guerilla', 'Helvetica Neue', Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   text-align: center
@@ -117,41 +116,41 @@ body
   width: $vw-unit * 9
   height: $vw-unit * 9
   right: 0
+  top: 0
   font-size: $vw-unit * 5
   cursor: pointer
 
 #alerts
   display: flex
   max-width: $vw-unit * 80
-  height: $vw-unit * 6
-  bottom: $vw-unit * 2
+  height: $vw-unit * 8.5
+  bottom: $vw-unit * 1.5
   left: $vw-unit * 10
   padding: 0 $vw-unit * 3 0 $vw-unit * 12
-  color: #ffffff
-  background-color: rgba(0, 0, 0, 0.3)
+  color: #422b18
+  background-color: #b18a5f
+  border: 3px solid #d2a980
   border-radius: $vw-unit * 1
+  font-size: $vw-unit * 3
   font-weight: bold
-  line-height: 120%
+  line-height: 110%
 
 #alerts:before
   position: absolute
   content: ''
-  width: $vw-unit * 8
-  height: $vw-unit * 8
+  width: $vw-unit * 9.5
+  height: $vw-unit * 9.5
   left: $vw-unit * 2
   bottom: 0
-  background: transparent url('assets/pirate-parrot.svg') no-repeat 100% 100% / cover
-
-#alerts.koala:before
   background: transparent url('assets/koala.svg') no-repeat 100% 100% / cover
-
+  
 #fieldMy,
 #fieldTheir
   position: absolute
   background-color: rgba(0, 0, 0, 0.1)
   width: $field-width
   height: $field-width
-  bottom: $vw-unit * 10
+  bottom: $vw-unit * 11
 
   overflow: hidden
 
@@ -166,7 +165,7 @@ body
   width: $vw-unit * 13
   height: $vw-unit * 13
   right: $vw-unit * 13
-  top: $vw-unit * 4
+  top: $vw-unit * 3.5
   margin-left: auto
   border-radius: $vw-unit * 4
   background: rgba(0,138,13,0.6)
@@ -221,4 +220,5 @@ body
 
 .ship-tiny
   background: transparent url('assets/ship-1.svg') no-repeat 50% 50% / cover
+
 </style>

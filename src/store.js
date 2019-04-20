@@ -15,6 +15,8 @@ export default new Vuex.Store({
     shipPlaceType: 'big',
     shipPlaceOrientation: 'height',
 
+    showSettings: false,
+
     playerOne: {
       name: 'Лихая Русалка',
       movesAvailable: 1,
@@ -66,6 +68,14 @@ export default new Vuex.Store({
       return state[state.currentPlayer].name
     },
 
+    getOpponentName: (state) => {
+      return state[state.opponent].name
+    },
+
+    getSettingsVisibility: (state) => {
+      return state.showSettings
+    },
+
     // Utility and mechanics
     isMovesLeft: (state) => {
       return state[state.currentPlayer].movesAvailable > 0
@@ -73,6 +83,14 @@ export default new Vuex.Store({
 
     isShotsLeft: (state) => {
       return state[state.currentPlayer].shotsAvailable > 0
+    },
+
+    getMovesLeft: (state) => {
+      return state[state.currentPlayer].movesAvailable
+    },
+
+    getShotsLeft: (state) => {
+      return state[state.currentPlayer].shotsAvailable
     },
 
     getFieldByParams: (state) => (player) => {
@@ -218,6 +236,10 @@ export default new Vuex.Store({
         tiles.push(row)
       }
       state[targetPlayer].field = tiles
+    },
+
+    toggleSettings (state) {
+      state.showSettings = !state.showSettings
     },
 
     // Utility and Mechanics
@@ -391,7 +413,7 @@ export default new Vuex.Store({
           context.state.opponent = 'playerTwo'
           context.state.currentPhase = 'goPlayerOne'
           context.state.turnCount++
-          context.state.alertMessage = 'Шел ' + context.state.turnCount + ' день сражений.'
+          context.state.alertMessage = 'Шел ' + context.state.turnCount + '-й день сражений.'
           context.state[context.state.currentPlayer].movesAvailable = 1
           context.state[context.state.currentPlayer].shotsAvailable = 1
           break
@@ -403,7 +425,7 @@ export default new Vuex.Store({
             context.state.currentPhase = 'goPlayerTwo'
             context.state[context.state.currentPlayer].movesAvailable = 1
             context.state[context.state.currentPlayer].shotsAvailable = 1
-            context.state.alertMessage = 'Шел ' + context.state.turnCount + ' день сражений.'
+            context.state.alertMessage = 'Шел ' + context.state.turnCount + '-й день сражений.'
           } else {
           context.state.currentPhase = 'placeShipsTwo'
           }

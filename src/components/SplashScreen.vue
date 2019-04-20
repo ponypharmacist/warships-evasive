@@ -2,13 +2,21 @@
   
   #splash-screen
     #ready-player-one
-      .splash-screen-title Ready Player One
+      .splash-screen-title 
+        span {{ this.getOpponentName }}
+        | , готовься к бою! Враг не дремлет...
       .ready-button(@click="advanceGamePhase()") 1к чертей!
     #ready-player-two
-      .splash-screen-title Ready Player Two
+      .splash-screen-title 
+        span {{ this.getOpponentName }}
+        | , они оскорбили твою бороду!
+        br
+        | Отмой позор кровью!
       .ready-button(@click="setShipType('big'), advanceGamePhase()") Яррр!
     #game-menu
-      .new-game-button.font-guerilla(@click="advanceGamePhase()") Готовь пушки!
+      .new-game-button(@click="advanceGamePhase()") Готовь пушки!
+    #settings-menu(:class="{ show: this.getSettingsVisibility }")
+      | Настроечки
 
 </template>
 
@@ -24,6 +32,8 @@ export default {
   computed: {
     ...mapGetters([
       'getCurrentPlayer',
+      'getOpponentName',
+      'getSettingsVisibility',
     ]),
 
   },
@@ -50,13 +60,17 @@ export default {
   font-weight: normal
   font-style: normal
 
-.font-guerilla
-  font-family: 'Guerilla', 'Helvetica Neue', Helvetica, Arial, sans-serif
-
 /* Splash Screen */
-$size-vertical: 95vh
+$size-vertical: 100vh
 $vh-unit: $size-vertical / 100
 $vw-unit: $size-vertical / 100 * 1.333
+
+#splash-screen
+  display: flex
+  width: 100%
+  height: 100%
+  justify-content: center
+  align-items: center
 
 #game-menu,
 #ready-player-one,
@@ -95,9 +109,17 @@ $vw-unit: $size-vertical / 100 * 1.333
 .splash-screen-title
   padding: $vw-unit * 1 $vw-unit * 2
   margin-bottom: $vw-unit * 4
+  color: #422b18
   font-size: $vw-unit * 6
   font-weight: bold
   background-color: rgba(255,255,255,0.8)
+
+  span
+    color: #881e1e
+
+.goPlayerTwo #ready-player-two *,
+.goPlayerOne #ready-player-one *
+  opacity: 0
 
 .ready-button
   display: inline-block
@@ -106,10 +128,15 @@ $vw-unit: $size-vertical / 100 * 1.333
   background-color: #fff
   border: 3px solid #8f673b
   border-radius: 12px
+  color: #422b18
   font-size: $vw-unit * 4
   font-weight: bold
   text-align: center
   cursor: pointer
+  transition: all 0.25s linear
+
+.ready-button:hover
+  background-color: #d9cab9
 
 .new-game-button
   position: absolute
@@ -129,4 +156,18 @@ $vw-unit: $size-vertical / 100 * 1.333
   color: rgba(255,255,255,0.75)
   background-color: #69413d
 
+#settings-menu
+  position: relative
+  z-index: 5
+  width: 60%
+  height: 40%
+  top: -100vh
+  padding: 2.5%
+  background-color: #fff
+  box-shadow: 0 0 1.5rem rgba(95,50,10,.15)
+  transition: top 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+
+#settings-menu.show
+  top: 0
+  
 </style>

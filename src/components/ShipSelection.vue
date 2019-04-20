@@ -81,7 +81,7 @@ export default {
 
 <style lang="sass">
 /* Ship Selection Menu */
-$size-vertical: 95vh
+$size-vertical: 100vh
 $vh-unit: $size-vertical / 100
 $vw-unit: $size-vertical / 100 * 1.333
 
