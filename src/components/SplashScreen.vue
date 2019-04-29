@@ -56,7 +56,7 @@ export default {
 
 @font-face
   font-family: 'Guerilla'
-  src: url('../assets/fonts/Guerilla.ttf')  format('truetype')
+  src: url('../assets/fonts/Guerilla.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/Guerilla.woff') format('woff'), url('../assets/fonts/Guerilla.ttf') format('truetype'), url('../assets/fonts/Guerilla.svg#Guerilla') format('svg')
   font-weight: normal
   font-style: normal
 

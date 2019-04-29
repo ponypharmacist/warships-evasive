@@ -37,6 +37,7 @@ export default {
       'markShipDead',
       'placeDeadTiles',
       'reduceShotsAvailable',
+      'setLastShot',
     ]),
 
     fireCannon (row, col) {
@@ -53,6 +54,7 @@ export default {
       } else {
         this.placeMine({row: row, col: col})
         this.reduceShotsAvailable()
+        this.setLastShot({row: row + 1, col: col + 1})
       }
       // 1. Is this a hit?
       if ( this.opponentFieldCheck(row, col, 'ship') ) {

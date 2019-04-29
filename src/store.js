@@ -21,6 +21,7 @@ export default new Vuex.Store({
       name: 'Лихая Русалка',
       movesAvailable: 1,
       shotsAvailable: 1,
+      lastShot: '',
       availableShips: {
         big: 1,
         medium: 2,
@@ -35,6 +36,7 @@ export default new Vuex.Store({
       name: 'Волчья Голова',
       movesAvailable: 1,
       shotsAvailable: 1,
+      lastShot: '',
       availableShips: {
         big: 1,
         medium: 2,
@@ -243,6 +245,10 @@ export default new Vuex.Store({
     },
 
     // Utility and Mechanics
+    setLastShot (state, coordinates) {
+      state[state.currentPlayer].lastShot = coordinates.col + ',' + coordinates.row
+    },
+
     reduceMovesAvailable (state) {
       state[state.currentPlayer].movesAvailable--
     },
@@ -361,32 +367,29 @@ export default new Vuex.Store({
             state[state.currentPlayer].field[ship.row - 1 + ship.size][ship.col].ship = false
             // change ship coordinates
             ship.row--
-            ship.style = 'left: ' + (ship.col * 10) + '%; top: ' + (ship.row * 10) + '%; ' + ship.orientation + ': ' + (ship.size * 10) + '%;'
             // pop'n'shift or push'n'unshift ship tiles array
             ship.tiles.pop()
             ship.tiles.unshift({row: ship.row, col: ship.col })
           } else if ( movingShip.direction == 'down' ) {
             state[state.currentPlayer].field[ship.row + ship.size][ship.col].ship = true
             state[state.currentPlayer].field[ship.row][ship.col].ship = false
-            ship.row++
-            ship.style = 'left: ' + (ship.col * 10) + '%; top: ' + (ship.row * 10) + '%; ' + ship.orientation + ': ' + (ship.size * 10) + '%;'
             ship.tiles.shift()
             ship.tiles.push({row: ship.row + ship.size, col: ship.col })
+            ship.row++
           } else if ( movingShip.direction == 'left' ) {
             state[state.currentPlayer].field[ship.row][ship.col - 1].ship = true
             state[state.currentPlayer].field[ship.row][ship.col - 1 + ship.size].ship = false
             ship.col--
-            ship.style = 'left: ' + (ship.col * 10) + '%; top: ' + (ship.row * 10) + '%; ' + ship.orientation + ': ' + (ship.size * 10) + '%;'
             ship.tiles.pop()
             ship.tiles.unshift({row: ship.row, col: ship.col })
           } else if ( movingShip.direction == 'right' ) {
             state[state.currentPlayer].field[ship.row][ship.col + ship.size].ship = true
             state[state.currentPlayer].field[ship.row][ship.col].ship = false
-            ship.col++
-            ship.style = 'left: ' + (ship.col * 10) + '%; top: ' + (ship.row * 10) + '%; ' + ship.orientation + ': ' + (ship.size * 10) + '%;'
             ship.tiles.shift()
             ship.tiles.push({row: ship.row, col: ship.col + ship.size })
+            ship.col++
           }
+          ship.style = 'left: ' + (ship.col * 10) + '%; top: ' + (ship.row * 10) + '%; ' + ship.orientation + ': ' + (ship.size * 10) + '%;'
           return
         }
       }
@@ -413,7 +416,10 @@ export default new Vuex.Store({
           context.state.opponent = 'playerTwo'
           context.state.currentPhase = 'goPlayerOne'
           context.state.turnCount++
-          context.state.alertMessage = 'Шел ' + context.state.turnCount + '-й день сражений.'
+          context.state.alertMessage = 'Шел ' + context.state.turnCount + '-й день сражений. '
+          if (context.state.turnCount >= 2) {
+            context.state.alertMessage += context.state[context.state.opponent].name + ' шлет привет в сектор ' + context.state[context.state.opponent].lastShot + '.'
+          }
           context.state[context.state.currentPlayer].movesAvailable = 1
           context.state[context.state.currentPlayer].shotsAvailable = 1
           break
@@ -425,7 +431,10 @@ export default new Vuex.Store({
             context.state.currentPhase = 'goPlayerTwo'
             context.state[context.state.currentPlayer].movesAvailable = 1
             context.state[context.state.currentPlayer].shotsAvailable = 1
-            context.state.alertMessage = 'Шел ' + context.state.turnCount + '-й день сражений.'
+            context.state.alertMessage = 'Шел ' + context.state.turnCount + '-й день сражений. '
+            if (context.state.turnCount >= 2) {
+              context.state.alertMessage += context.state[context.state.opponent].name + ' шлет привет в сектор ' + context.state[context.state.opponent].lastShot + '.'
+            }
           } else {
           context.state.currentPhase = 'placeShipsTwo'
           }

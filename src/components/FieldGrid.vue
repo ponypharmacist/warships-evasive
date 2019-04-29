@@ -53,8 +53,12 @@ export default {
     placeShip (row, col) {
       let type = this.shipPlaceType
       // Check if there are available ships of selected type
-      if ( this.getShipsAvailableByType(type) <= 0 ) {
+      if ( this.getShipsAvailableAll <= 0 ) {
         this.sendAlertMessage('Все корабли запущены. Пора идти в атаку.')
+        return
+      } else if ( this.getShipsAvailableByType(type) <= 0 ) {
+        this.sendAlertMessage('Таких кораблей больше нет. Пиратский бюджет, крюком его по япкам!')
+        this.switchShipButtons(type)
         return
       }
       // Determine size
@@ -96,7 +100,9 @@ export default {
           this.setShipType('small')
         } else if (type == 'small') {
           this.setShipType('tiny')
-        }
+        } else if (type == 'tiny' && this.getShipsAvailableAll !== 0) {
+          this.setShipType('big')
+        } 
       }
     },
 
