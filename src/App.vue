@@ -1,22 +1,22 @@
 <template lang="pug">
 
-  #app(:class="this.getCurrentPhase")
+  #app(:class="this.$store.state.currentPhase")
     SplashScreen
 
     CharacterBar
     #go-button(@click="advanceGamePhase()") Go!
     #settings(@click="toggleSettings()") ⚙️
-    #alerts {{ this.getAlertMessage }}
+    #alerts {{ this.$store.state.alertMessage }}
 
     #fieldMy(:class = "[this.placeShipTypeClass, this.isMovesLeft ? '' : 'no-moves-left']")
-      FieldGrid(:player="this.getCurrentPlayer")
-      .ship(v-for="ship in this.getShipsByPlayer(this.getCurrentPlayer)"
+      FieldGrid(:player="this.$store.state.currentPlayer")
+      .ship(v-for="ship in this.getShipsByPlayer(this.$store.state.currentPlayer)"
             :class="[ship.classification, ship.isDamaged ? 'isDamaged' : '', ship.isDead ? 'isDead' : '']" 
             :style="ship.style")
         ShipControls(:ship="ship")
 
     #fieldTheir
-      FieldGridOpponent(:player="this.getOpponent")
+      FieldGridOpponent(:player="this.$store.state.opponent")
     
     ShipSelection
 
@@ -44,18 +44,12 @@ export default {
 
   computed: {
     ...mapGetters([
-      'getAlertMessage',
-      'getCurrentPhase',
-      'getCurrentPlayer',
-      'getOpponent',
       'getShipsByPlayer',
-      'shipPlaceType',
-      'shipPlaceOrientation',
       'isMovesLeft',
     ]),
 
     placeShipTypeClass: function() {
-      return 'place-' + this.shipPlaceType + ' orient-' + this.shipPlaceOrientation
+      return 'place-' + this.$store.state.shipPlaceType + ' orient-' + this.$store.state.shipPlaceOrientation
     }
   },
 
@@ -66,10 +60,12 @@ export default {
     ]),
     ...mapActions([
       'advanceGamePhase',
+      'loadLocalData',
     ]),
   },
 
   created () {
+    this.loadLocalData()
     this.populateFieldByPlayer('playerOne')
     this.populateFieldByPlayer('playerTwo')
   },
@@ -167,11 +163,12 @@ body
   right: $vw-unit * 13
   top: $vw-unit * 3.5
   margin-left: auto
+  border: $vw-unit * 0.5 solid rgba(0,88,10,0.6)
   border-radius: $vw-unit * 4
   background: rgba(0,138,13,0.6)
   color: #fff
   font-size: $vw-unit * 5
-  line-height: $vw-unit * 13
+  line-height: $vw-unit * 12
   font-weight: bold
   cursor: pointer
   opacity: 1

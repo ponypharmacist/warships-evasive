@@ -1,13 +1,13 @@
 <template lang="pug">
   
   #character-bar
-    #avatar(:class="this.getCurrentPlayer")
+    #avatar(:class="this.$store.state.currentPlayer")
     .name-and-shots
       input.player-name(:value="this.getCurrentPlayerName" @input="this.updatePlayerName")
       .player-stats
         .moves-left ⛵x{{ this.getMovesLeft }}
         .shots-left 💣x{{ this.getShotsLeft }}
-    #adversary(:class="this.getCurrentPlayer")
+    #adversary(:class="this.$store.state.currentPlayer")
 
 
 </template>
@@ -20,7 +20,6 @@ export default {
 
   computed: {
     ...mapGetters([
-      'getCurrentPlayer',
       'getCurrentPlayerName',
       'getMovesLeft',
       'getShotsLeft',

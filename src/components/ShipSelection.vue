@@ -34,8 +34,6 @@ export default {
 
   computed: {
     ...mapGetters([
-      'shipPlaceType',
-      'shipPlaceOrientation',
       'getShipsAvailableByType',
       'getShipsAvailableAll',
     ]),
@@ -55,8 +53,8 @@ export default {
 
     shipButtonClass (shipClass) {
       return {
-        active: this.shipPlaceType == shipClass,
-        horizontal: this.shipPlaceOrientation == 'height' ? false : true,
+        active: this.$store.state.shipPlaceType == shipClass,
+        horizontal: this.$store.state.shipPlaceOrientation == 'height' ? false : true,
         disabled: this.getShipsAvailableByType(shipClass) == 0
       }
     },

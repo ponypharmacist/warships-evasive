@@ -3,20 +3,21 @@
   #splash-screen
     #ready-player-one
       .splash-screen-title 
-        span {{ this.getOpponentName }}
+        span {{ this.$store.state.playerOne.name }}
         | , готовься к бою! Враг не дремлет...
       .ready-button(@click="advanceGamePhase()") 1к чертей!
     #ready-player-two
       .splash-screen-title 
-        span {{ this.getOpponentName }}
+        span {{ this.$store.state.playerTwo.name }}
         | , они оскорбили твою бороду!
         br
         | Отмой позор кровью!
       .ready-button(@click="setShipType('big'), advanceGamePhase()") Яррр!
     #game-menu
       .new-game-button(@click="advanceGamePhase()") Готовь пушки!
-    #settings-menu(:class="{ show: this.getSettingsVisibility }")
-      | Настроечки
+    #settings-menu(:class="{ show: this.$store.state.showSettings }")
+      .settings-title Настроечки
+      a.settings-clear-localstorage(@click="clearLocalStorage()") Сбросить локальные данные
 
 </template>
 
@@ -31,9 +32,6 @@ export default {
 
   computed: {
     ...mapGetters([
-      'getCurrentPlayer',
-      'getOpponentName',
-      'getSettingsVisibility',
     ]),
 
   },
@@ -44,8 +42,14 @@ export default {
     ]),
     ...mapMutations([
       'setShipType',
+      'sendAlertMessage',
     ]),
 
+    clearLocalStorage () {
+      localStorage.removeItem('TenShipsPlayerOneName')
+      localStorage.removeItem('TenShipsPlayerTwoName')
+      this.sendAlertMessage('Локальное хранилище очищено.')
+    },
   }
 
 }
@@ -117,10 +121,6 @@ $vw-unit: $size-vertical / 100 * 1.333
   span
     color: #881e1e
 
-.goPlayerTwo #ready-player-two *,
-.goPlayerOne #ready-player-one *
-  opacity: 0
-
 .ready-button
   display: inline-block
   width: $vw-unit * 28
@@ -169,5 +169,8 @@ $vw-unit: $size-vertical / 100 * 1.333
 
 #settings-menu.show
   top: 0
-  
+
+.settings-title
+  font-size: $vw-unit * 4
+
 </style>

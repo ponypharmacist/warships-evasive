@@ -50,32 +50,8 @@ export default new Vuex.Store({
   
   getters: {
     // General Interfrace
-    getAlertMessage: (state) => {
-      return state.alertMessage
-    },
-
-    getCurrentPhase: (state) => {
-      return state.currentPhase
-    },
-
-    getCurrentPlayer: (state) => {
-      return state.currentPlayer
-    },
-
-    getOpponent: (state) => {
-      return state.opponent
-    },
-
     getCurrentPlayerName: (state) => {
       return state[state.currentPlayer].name
-    },
-
-    getOpponentName: (state) => {
-      return state[state.opponent].name
-    },
-
-    getSettingsVisibility: (state) => {
-      return state.showSettings
     },
 
     // Utility and mechanics
@@ -101,14 +77,6 @@ export default new Vuex.Store({
 
     getShipsByPlayer: (state) => (player) => {
       return state[player].ships
-    },
-
-    shipPlaceType: state => {
-      return state.shipPlaceType
-    },
-
-    shipPlaceOrientation: state => {
-      return state.shipPlaceOrientation
     },
 
     getShipsAvailableByType: (state) => (type) => {
@@ -246,7 +214,20 @@ export default new Vuex.Store({
 
     // Utility and Mechanics
     setLastShot (state, coordinates) {
-      state[state.currentPlayer].lastShot = coordinates.col + ',' + coordinates.row
+      let coordinateLetter = 'A'
+      switch (coordinates.col) {
+        case 1: coordinateLetter = 'A'; break
+        case 2: coordinateLetter = 'B'; break
+        case 3: coordinateLetter = 'C'; break
+        case 4: coordinateLetter = 'D'; break
+        case 5: coordinateLetter = 'E'; break
+        case 6: coordinateLetter = 'F'; break
+        case 7: coordinateLetter = 'G'; break
+        case 8: coordinateLetter = 'H'; break
+        case 9: coordinateLetter = 'I'; break
+        case 10: coordinateLetter = 'J'; break
+      }
+      state[state.currentPlayer].lastShot = coordinateLetter + coordinates.row
     },
 
     reduceMovesAvailable (state) {
@@ -409,7 +390,20 @@ export default new Vuex.Store({
 
 
   actions: {
+    loadLocalData (context) {
+      if ( JSON.parse( localStorage.getItem('TenShipsPlayerOneName') ) ) {
+        context.state.playerOne.name = JSON.parse(localStorage.getItem('TenShipsPlayerOneName'))
+      }
+      if ( JSON.parse( localStorage.getItem('TenShipsPlayerTwoName') ) ) {
+        context.state.playerTwo.name = JSON.parse(localStorage.getItem('TenShipsPlayerTwoName'))
+      }
+    },
+
     advanceGamePhase (context) {
+      // Save stuff to Local Storage
+      localStorage.setItem('TenShipsPlayerOneName', JSON.stringify(context.state.playerOne.name))
+      localStorage.setItem('TenShipsPlayerTwoName', JSON.stringify(context.state.playerTwo.name))
+      // Advance game phases logic
       switch (context.state.currentPhase) {
         case 'readyPlayerOne':
           context.state.currentPlayer = 'playerOne'
@@ -417,7 +411,7 @@ export default new Vuex.Store({
           context.state.currentPhase = 'goPlayerOne'
           context.state.turnCount++
           context.state.alertMessage = 'Шел ' + context.state.turnCount + '-й день сражений. '
-          if (context.state.turnCount >= 2) {
+          if (context.state[context.state.opponent].lastShot) {
             context.state.alertMessage += context.state[context.state.opponent].name + ' шлет привет в сектор ' + context.state[context.state.opponent].lastShot + '.'
           }
           context.state[context.state.currentPlayer].movesAvailable = 1
@@ -432,7 +426,7 @@ export default new Vuex.Store({
             context.state[context.state.currentPlayer].movesAvailable = 1
             context.state[context.state.currentPlayer].shotsAvailable = 1
             context.state.alertMessage = 'Шел ' + context.state.turnCount + '-й день сражений. '
-            if (context.state.turnCount >= 2) {
+            if (context.state[context.state.opponent].lastShot) {
               context.state.alertMessage += context.state[context.state.opponent].name + ' шлет привет в сектор ' + context.state[context.state.opponent].lastShot + '.'
             }
           } else {
@@ -450,6 +444,6 @@ export default new Vuex.Store({
         default:
           context.state.currentPhase = 'placeShipsOne'
       }
-    }
+    },
   }
 })

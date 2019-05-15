@@ -1,13 +1,13 @@
 <template lang="pug">
   
   .field-grid
-    template(v-if="this.getCurrentPlayer == this.player && !(this.getCurrentPhase == 'goPlayerOne' || this.getCurrentPhase == 'goPlayerTwo')")
+    template(v-if="this.$store.state.currentPlayer == this.player && !(this.$store.state.currentPhase == 'goPlayerOne' || this.$store.state.currentPhase == 'goPlayerTwo')")
       template(v-for="(row, indexRow) in this.getFieldByParams(this.player)")
         div(v-for="(cell, indexCell) in row"
             @click="cell.forbid ? printForbidden() : placeShip(indexRow, indexCell)"
             :class="{ forbidden: cell.forbid, isShip: cell.ship, mine: cell.mine }")
     
-    template(v-if="this.getCurrentPlayer == this.player && (this.getCurrentPhase == 'goPlayerOne' || this.getCurrentPhase == 'goPlayerTwo')")
+    template(v-if="this.$store.state.currentPlayer == this.player && (this.$store.state.currentPhase == 'goPlayerOne' || this.$store.state.currentPhase == 'goPlayerTwo')")
       template(v-for="(row, indexRow) in this.getFieldByParams(this.player)")
         div(v-for="(cell, indexCell) in row"
             :class="{ isShip: cell.ship, mine: cell.mine }")
@@ -25,14 +25,9 @@ export default {
 
   computed: {
     ...mapGetters([
-      'getCurrentPhase',
-      'getCurrentPlayer',
-      'getOpponent',
       'getFieldByParams',
       'getShipsAvailableByType',
       'getShipsAvailableAll',
-      'shipPlaceOrientation',
-      'shipPlaceType',
       'isTileForbidden',
       'isTileShip',
       'opponentFieldCheck',
@@ -51,7 +46,7 @@ export default {
     ]),
 
     placeShip (row, col) {
-      let type = this.shipPlaceType
+      let type = this.$store.state.shipPlaceType
       // Check if there are available ships of selected type
       if ( this.getShipsAvailableAll <= 0 ) {
         this.sendAlertMessage('Все корабли запущены. Пора идти в атаку.')
@@ -62,7 +57,7 @@ export default {
         return
       }
       // Determine size
-      let orientation = this.shipPlaceOrientation
+      let orientation = this.$store.state.shipPlaceOrientation
       let size = 1
       if (type == 'big') {
         size = 4
