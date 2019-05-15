@@ -1,7 +1,7 @@
 <template lang="pug">
   
   #character-bar
-    #avatar(:class="this.$store.state.currentPlayer")
+    #avatar(@click="this.toggleSettings" :class="this.$store.state.currentPlayer" :style="this.getCurrentAvatar")
     .name-and-shots
       input.player-name(:value="this.getCurrentPlayerName" @input="this.updatePlayerName")
       .player-stats
@@ -21,6 +21,7 @@ export default {
   computed: {
     ...mapGetters([
       'getCurrentPlayerName',
+      'getCurrentAvatar',
       'getMovesLeft',
       'getShotsLeft',
     ]),
@@ -30,10 +31,11 @@ export default {
     ...mapMutations([
       'setShipType',
       'updateCurrentPlayerName',
+      'toggleSettings',
     ]),
     updatePlayerName (e) {
       this.updateCurrentPlayerName(e)
-    }
+    },
   }
 
 }

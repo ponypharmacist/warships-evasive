@@ -19,6 +19,7 @@ export default new Vuex.Store({
 
     playerOne: {
       name: 'Лихая Русалка',
+      imageUrl: '',
       movesAvailable: 1,
       shotsAvailable: 1,
       lastShot: '',
@@ -34,6 +35,7 @@ export default new Vuex.Store({
 
     playerTwo: {
       name: 'Волчья Голова',
+      imageUrl: '',
       movesAvailable: 1,
       shotsAvailable: 1,
       lastShot: '',
@@ -52,6 +54,10 @@ export default new Vuex.Store({
     // General Interfrace
     getCurrentPlayerName: (state) => {
       return state[state.currentPlayer].name
+    },
+    
+    getCurrentAvatar: (state) => {
+      return state[state.currentPlayer].imageUrl ? 'background-image: url(' + state[state.currentPlayer].imageUrl + ');' : ''
     },
 
     // Utility and mechanics
@@ -193,6 +199,23 @@ export default new Vuex.Store({
 
     updateCurrentPlayerName (state, e) {
       state[state.currentPlayer].name = e.target.value
+      localStorage.setItem('TenShipsPlayerOneName', JSON.stringify(state.playerOne.name))
+      localStorage.setItem('TenShipsPlayerTwoName', JSON.stringify(state.playerTwo.name))
+    },
+
+    updateImageUrlOne (state, e) {
+      state.playerOne.imageUrl = e.target.value
+      localStorage.setItem('TenShipsPlayerOneImage', JSON.stringify(state.playerOne.imageUrl))
+    },
+    updateImageUrlTwo (state, e) {
+      state.playerTwo.imageUrl = e.target.value
+      localStorage.setItem('TenShipsPlayerTwoImage', JSON.stringify(state.playerTwo.imageUrl))
+    },
+    removeAvatars (state) {
+      state.playerOne.name = 'Лихая Русалка'
+      state.playerTwo.name = 'Волчья Голова'
+      state.playerOne.imageUrl = ''
+      state.playerTwo.imageUrl = ''
     },
 
     populateFieldByPlayer (state, player) {
@@ -391,18 +414,23 @@ export default new Vuex.Store({
 
   actions: {
     loadLocalData (context) {
+      // Player One
       if ( JSON.parse( localStorage.getItem('TenShipsPlayerOneName') ) ) {
         context.state.playerOne.name = JSON.parse(localStorage.getItem('TenShipsPlayerOneName'))
       }
+      if ( JSON.parse( localStorage.getItem('TenShipsPlayerOneImage') ) ) {
+        context.state.playerOne.imageUrl = JSON.parse(localStorage.getItem('TenShipsPlayerOneImage'))
+      }
+      // Player Two
       if ( JSON.parse( localStorage.getItem('TenShipsPlayerTwoName') ) ) {
         context.state.playerTwo.name = JSON.parse(localStorage.getItem('TenShipsPlayerTwoName'))
+      }
+      if ( JSON.parse( localStorage.getItem('TenShipsPlayerTwoImage') ) ) {
+        context.state.playerTwo.imageUrl = JSON.parse(localStorage.getItem('TenShipsPlayerTwoImage'))
       }
     },
 
     advanceGamePhase (context) {
-      // Save stuff to Local Storage
-      localStorage.setItem('TenShipsPlayerOneName', JSON.stringify(context.state.playerOne.name))
-      localStorage.setItem('TenShipsPlayerTwoName', JSON.stringify(context.state.playerTwo.name))
       // Advance game phases logic
       switch (context.state.currentPhase) {
         case 'readyPlayerOne':

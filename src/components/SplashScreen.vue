@@ -16,8 +16,18 @@
     #game-menu
       .new-game-button(@click="advanceGamePhase()") Готовь пушки!
     #settings-menu(:class="{ show: this.$store.state.showSettings }")
+      .settings-close(@click="this.toggleSettings") ×
       .settings-title Настроечки
-      a.settings-clear-localstorage(@click="clearLocalStorage()") Сбросить локальные данные
+
+      .settings-item
+        .settings-item-label Портрет капитана "{{ this.$store.state.playerOne.name }}" (URL)
+        input.settings-item-input(:value="this.$store.state.playerOne.imageUrl" @input="this.newImageOne")
+
+      .settings-item
+        .settings-item-label Портрет капитана "{{ this.$store.state.playerTwo.name }}" (URL)
+        input.settings-item-input(:value="this.$store.state.playerTwo.imageUrl" @input="this.newImageTwo")
+
+      a.settings-clear-localstorage(@click="clearLocalStorage()") Сбросить имена и юзерпики
 
 </template>
 
@@ -43,12 +53,25 @@ export default {
     ...mapMutations([
       'setShipType',
       'sendAlertMessage',
+      'updateImageUrlOne',
+      'updateImageUrlTwo',
+      'removeAvatars',
+      'toggleSettings',
     ]),
 
     clearLocalStorage () {
       localStorage.removeItem('TenShipsPlayerOneName')
       localStorage.removeItem('TenShipsPlayerTwoName')
+      localStorage.removeItem('TenShipsPlayerOneImage')
+      localStorage.removeItem('TenShipsPlayerTwoImage')
+      this.removeAvatars()
       this.sendAlertMessage('Локальное хранилище очищено.')
+    },
+    newImageOne (e) {
+      this.updateImageUrlOne(e)
+    },
+    newImageTwo (e) {
+      this.updateImageUrlTwo(e)
     },
   }
 
@@ -156,6 +179,7 @@ $vw-unit: $size-vertical / 100 * 1.333
   color: rgba(255,255,255,0.75)
   background-color: #69413d
 
+/* Settings screen */
 #settings-menu
   position: relative
   z-index: 5
@@ -165,12 +189,51 @@ $vw-unit: $size-vertical / 100 * 1.333
   padding: 2.5%
   background-color: #fff
   box-shadow: 0 0 1.5rem rgba(95,50,10,.15)
+  text-align: left
   transition: top 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55)
 
 #settings-menu.show
   top: 0
 
+.settings-close
+  position: absolute
+  width: $vw-unit * 3
+  height: $vw-unit * 3
+  right: $vw-unit * 1.25
+  top: $vw-unit * 1.5
+  font-size: $vw-unit * 5
+  line-height: $vw-unit * 3
+  cursor: pointer
+
+  &:hover
+    color: #881e1e
+
 .settings-title
+  padding-bottom: $vw-unit * 2.25
+  text-align: center
   font-size: $vw-unit * 4
+
+.settings-clear-localstorage
+  font-size: $vw-unit * 1.5
+  color: #881e1e
+  text-decoration: underline
+  cursor: pointer
+
+  &:hover
+    color: #422b18
+
+.settings-item
+  padding-bottom: $vw-unit * 1.5
+
+.settings-item-label
+  font-size: $vw-unit * 2
+  padding-bottom: $vw-unit * 0.75
+
+.settings-item-input
+  width: 100%
+  font-size: $vw-unit * 1.5
+  padding: $vw-unit * 0.75
+  border: 2px solid #2c3e50
+  border-radius: $vw-unit * 0.5
 
 </style>
